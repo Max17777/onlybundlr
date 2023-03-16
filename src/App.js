@@ -12,17 +12,14 @@ import { localStorage } from "@lens-protocol/react/web";
 
 import LeftNav from "./components/LeftNav";
 import RightNav from "./components/RightNav";
-import ContentFeed from "./components/ContentFeed";
-import ProfileFeed from "./components/ProfileFeed";
+import ContentFeedPage from "./pages/ContentFeedPage";
+import ProfileFeedPage from "./pages/ProfileFeedPage";
+import EditProfilePage from "./pages/EditProfilePage";
+import CreatePublicationPage from "./pages/CreatePublicationPage";
+
 import CreateProfile from "./components/CreateProfile";
-import EditProfile from "./components/EditProfile";
-import CreatePost from "./components/CreatePost";
 
-const { chains, provider, webSocketProvider } = configureChains(
-	[polygonMumbai, polygon],
-	[publicProvider()],
-);
-
+const { chains, provider, webSocketProvider } = configureChains([polygonMumbai], [publicProvider()]);
 const client = createClient({
 	autoConnect: true,
 	provider,
@@ -32,6 +29,7 @@ const client = createClient({
 const lensConfig = {
 	bindings: wagmiBindings(),
 	environment: staging,
+	// sources: ["onlybundlr"],
 	storage: localStorage(),
 };
 
@@ -43,12 +41,12 @@ function App() {
 					<LeftNav />
 					<BrowserRouter>
 						<Routes>
-							<Route path="/" element={<ContentFeed />} />
-							<Route path="/home" element={<ContentFeed />} />
-							<Route path="/*" element={<ProfileFeed />} />
+							<Route path="/" element={<ContentFeedPage />} />
+							<Route path="/home" element={<ContentFeedPage />} />
+							<Route path="/*" element={<ProfileFeedPage />} />
 							<Route path="/create-profile" element={<CreateProfile />} />
-							<Route path="/edit-profile" element={<EditProfile />} />
-							<Route path="/create-post" element={<CreatePost />} />
+							<Route path="/edit-profile" element={<EditProfilePage />} />
+							<Route path="/create-publication" element={<CreatePublicationPage />} />
 						</Routes>
 					</BrowserRouter>
 					<RightNav />

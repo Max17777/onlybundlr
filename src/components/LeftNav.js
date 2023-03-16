@@ -14,7 +14,7 @@ const LeftNav = () => {
 			<a className="my-2 mx-2 self-end" href="/edit-profile">
 				<SlUser className="hover:h-12 hover:w-12 ease-in-out duration-300 h-10 w-10" />
 			</a>
-			<a className="my-2 mx-2 self-end" href="/create-post">
+			<a className="my-2 mx-2 self-end" href="/create-publication">
 				<AiOutlinePlus className="hover:h-12 hover:w-12 ease-in-out duration-300 h-10 w-10 rounded-full ring-2 bg-primary hover:bg-secondary" />
 			</a>
 		</div>
