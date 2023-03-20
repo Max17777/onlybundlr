@@ -31,7 +31,7 @@ const ContentFeed = () => {
 	});
 
 	return (
-		<div className="flex flex-col w-3/6 bg-background w-full px-5">
+		<div className="flex flex-col w-3/6 bg-background px-5">
 			<ProfileSwitcher />
 			{!isConnected && (
 				<div className="object-center self-center mt-[20%]">

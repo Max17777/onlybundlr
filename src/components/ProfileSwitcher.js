@@ -67,7 +67,7 @@ const ProfileSwitcher = () => {
 	}, [profilesLoading]);
 
 	return (
-		<div className="w-full mt-2 flex flex-col bg-primary px-1 py-1 rounded-lg">
+		<div className="w-fit mt-2 flex flex-col bg-primary px-1 py-1 rounded-lg">
 			<div className="flex flex-col  w-full">
 				<div className="flex flex-row  w-full px-5 py-2 ">
 					<label className="block uppercase tracking-wide text-gray-700 text-s font-bold">

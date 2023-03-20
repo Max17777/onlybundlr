@@ -3,7 +3,7 @@ import React from "react";
 const Publication = ({ id, content, description, media, publisher }) => {
 	console.log("media array=", media);
 	return (
-		<div className="w-full bg-primary my-5 bg-slate-300 px-1 py-1 rounded-xl" key={id}>
+		<div className="w-fit bg-primary my-5 bg-slate-300 px-1 py-1 rounded-xl" key={id}>
 			<div className="flex flex-row bg-secondary">
 				<img
 					className="inline-block h-12 w-12 mb-1 rounded-full ring-2 ring-white"
@@ -20,7 +20,8 @@ const Publication = ({ id, content, description, media, publisher }) => {
 				media.map((picture, id) => {
 					return (
 						<img
-							className="bg-primary px-1 py-1 w-full"
+							height="600"
+							className="bg-primary px-1 py-1"
 							src={picture.original?.url.replace("ipfs://", "https://ipfs.io/ipfs/")}
 						/>
 					);

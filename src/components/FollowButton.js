@@ -19,7 +19,7 @@ function FollowButton({ followee, follower }) {
 	if (followee.followStatus === null) {
 		return null;
 	}
-
+	console.log("followee=", followee);
 	if (followee.followStatus.isFollowedByMe) {
 		return (
 			<>
