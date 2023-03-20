@@ -16,7 +16,17 @@ const CreatePublication = () => {
 					<LoginButton />
 				</div>
 			)}
-			{isConnected && !profileLoading && <PublicationComposer publisher={activeProfile} />}
+			{!activeProfile && (
+				<div className="object-center self-center mt-[5%] text-xl ml-5">
+					you don't have an active profile, please{" "}
+					<a href="/edit-profile" className="underline">
+						create one
+					</a>
+				</div>
+			)}
+			{isConnected && !profileLoading && activeProfile && (
+				<PublicationComposer publisher={activeProfile} />
+			)}
 		</div>
 	);
 };

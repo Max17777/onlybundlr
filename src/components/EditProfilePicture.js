@@ -10,6 +10,8 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 import { useUpdateProfileImage } from "@lens-protocol/react";
 
 const EditProfilePicture = ({ profile }) => {
+	const [message, setMessage] = useState("");
+	const [txActive, setTxActive] = useState(false);
 	const [fileToUpload, setFileToUpload] = useState();
 	const [fileType, setFileType] = useState();
 	const {
@@ -29,16 +31,29 @@ const EditProfilePicture = ({ profile }) => {
 	};
 
 	const doUpdateProfilePicture = async () => {
+		setMessage("");
+		setTxActive(true);
+		console.log("file: ", fileToUpload);
+		if (!fileToUpload) {
+			setMessage("Please select an image first");
+			setTxActive(false);
+			return;
+		}
+
 		try {
+			setMessage("Uploading image ...");
 			const newProfileURL = await uploadImage(fileToUpload, fileType);
+			setMessage("Linking image with profile ...");
 			await updateProfileImage(newProfileURL);
 		} catch (e) {
 			console.log("error on update ", e);
 		}
+		setMessage("Profile image uploded.");
+		setTxActive(false);
 	};
 
 	return (
-		<div className="w-full mt-10 flex flex-col  bg-primary px-1 py-1 rounded-lg">
+		<div className="w-full mt-10 flex flex-col  bg-primary px-1 py-1 rounded-lg mb-10">
 			<label className="block uppercase text-xs font-bold mb-2">Profile Picture</label>
 			{profile?.picture && !fileToUpload && (
 				<img
@@ -56,8 +71,11 @@ const EditProfilePicture = ({ profile }) => {
 					name="files[]"
 				/>
 				<div className="flex flex-row justify-end align-start w-full bg-primary ">
+					<span className="font-main text-message mr-5">{message}</span>
+
 					<button
-						className="font-main px-5 text-white rounded-lg bg-background hover:bg-secondary "
+						className="font-main px-5 text-white rounded-lg bg-background enabled:hover:bg-secondary border border-red-500"
+						disabled={txActive}
 						onClick={() => doUpdateProfilePicture()}
 					>
 						upload

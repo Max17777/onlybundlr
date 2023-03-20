@@ -2,7 +2,7 @@ import { WebBundlr } from "@bundlr-network/client";
 import { getBundlr } from "./get-bundlr";
 
 export const upload = async (data) => {
-	//TODO: add app id
+	data.appId = "onlybundlr";
 
 	try {
 		const bundlr = await getBundlr();
@@ -13,14 +13,6 @@ export const upload = async (data) => {
 		const price = await bundlr.getPrice(new Blob([serialized]).size);
 		console.log("funding");
 		await bundlr.fund(price);
-
-		// const balance = await bundlr.getLoadedBalance();
-		// console.log("price=", price.toString());
-		// console.log("balance=", balance.toString());
-
-		// if (price.multipliedBy(1.2) >= balance) {
-		// 	console.log("funding");
-		// }
 
 		const tx = await bundlr.upload(serialized, {
 			tags: [{ name: "Content-Type", value: "application/json" }],

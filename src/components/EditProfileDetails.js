@@ -8,23 +8,11 @@ import { fetchSigner } from "wagmi/actions";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 
-import {
-	ContentFocus,
-	CollectPolicyType,
-	ReferencePolicy,
-	useCreatePost,
-	useActiveProfile,
-	useWalletLogin,
-	useCreateProfile,
-	useProfilesOwnedByMe,
-	useActiveProfileSwitch,
-	useUpdateProfileDetails,
-	useUpdateProfileImage,
-	useUpdateFollowPolicy,
-	FollowPolicyType,
-} from "@lens-protocol/react";
+import { useUpdateProfileDetails, useUpdateFollowPolicy, FollowPolicyType } from "@lens-protocol/react";
 
 const EditProfileDetails = ({ profile }) => {
+	const [message, setMessage] = useState("");
+	const [txActive, setTxActive] = useState(false);
 	const [name, setName] = useState("");
 	const [bio, setBio] = useState("  ");
 	const [followFee, setFollowFee] = useState(0);
@@ -44,25 +32,32 @@ const EditProfileDetails = ({ profile }) => {
 	} = useUpdateFollowPolicy({ profile });
 
 	const doUpdateProfile = async () => {
+		setMessage("");
+		setTxActive(true);
+
 		console.log("doUpdateProfile name=", name);
 		console.log("doUpdateProfile bio=", bio);
+		setMessage("Updating profile information ...");
+
 		let coverPicture = "";
 		if (fileToUpload) {
 			console.log("uploading cover picture");
+			setMessage("Uploading cover picture ...");
+
 			coverPicture = await uploadImage(fileToUpload, fileType);
 		} else {
 			coverPicture = profile.coverPicture?.original.url || null;
 		}
-
-		// coverPicture = "https://arweave.net/9o0COUMLo86DrlC9WJzuWIyAi4o-Jlvwkt4U3LZsvE4";
-
 		const attributes = {
 			location: "",
 			website: "",
 		};
-		console.log("about to call update profile details coverPicture=", coverPicture);
+		setMessage("Uploading profile information ...");
+
 		await update({ name, bio, coverPicture, attributes });
-		// await doUploadFollowPolicy();
+		setMessage("Profile updated.");
+		setTxActive(false);
+		// await doUploadFollowPolicy();  TODO
 	};
 
 	const doUploadFollowPolicy = async () => {
@@ -162,8 +157,11 @@ const EditProfileDetails = ({ profile }) => {
 				</div>
 			</div>
 			<div className="flex flex-row justify-end w-full bg-primary px-2 py-1 mt-1">
+				<span className="font-main text-message mr-5">{message}</span>
+
 				<button
-					className="font-main px-5 text-white rounded-lg bg-background hover:bg-secondary "
+					className="font-main px-5 text-white rounded-lg bg-background enabled:hover:bg-secondary border border-red-500"
+					disabled={txActive}
 					onClick={doUpdateProfile}
 				>
 					save

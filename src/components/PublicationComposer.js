@@ -3,10 +3,14 @@ import { upload } from "../utils/upload";
 import { uploadImage } from "../utils/upload-image";
 import fileReaderStream from "filereader-stream";
 import { fetchSigner } from "wagmi/actions";
-import { ContentFocus, CollectPolicyType, ReferencePolicy, useCreatePost } from "@lens-protocol/react";
+// import { ContentFocus, CollectPolicyType, ReferencePolicy, useCreatePost } from "@lens-protocol/react";
+import { ContentFocus, CollectPolicyType, ReferencePolicyType, useCreatePost } from "@lens-protocol/react";
+import ProfileSwitcher from "./ProfileSwitcher";
 
 const PublicationComposer = ({ publisher }) => {
-	const [fileToUpload, setFileToUpload] = useState();
+	const [message, setMessage] = useState("");
+	const [txActive, setTxActive] = useState(false);
+	const [fileToUpload, setFileToUpload] = useState(null);
 	const [fileType, setFileType] = useState();
 	const [caption, setCaption] = useState("");
 	const { execute: create, error, isPending } = useCreatePost({ publisher, upload });
@@ -24,40 +28,62 @@ const PublicationComposer = ({ publisher }) => {
 	};
 
 	const createPublication = async () => {
-		// STEP 1: Upload image
-		const imageUrl = "https://arweave.net/nvUPN0LmGwcz0xavoap7Xrj9j1E2X_RGbnae5x_F5Z0"; //await uploadImage(fileToUpload, fileType);
+		setTxActive(true);
+		setMessage("");
 
-		// STEP 2: Create post
-		await create({
-			content: caption,
-			contentFocus: ContentFocus.TEXT,
-			locale: "en",
-		});
-		// await create({
-		// 	profileId: profile.id,
-		// 	image: imageUrl,
-		// 	imageMimeType: fileType,
-		// 	contentFocus: ContentFocus.IMAGE,
-		// 	locale: "en",
-		// 	collect: {
-		// 		type: CollectPolicyType.NO_COLLECT,
-		// 	},
-		// 	reference: ReferencePolicy.,
-		// 	media: [
-		// 		{
-		// 			url: imageUrl,
-		// 			mimeType: fileType,
-		// 		},
-		// 	],
-		// });
+		if (fileToUpload) {
+			// image post
+			// STEP 1: Upload image
+			setMessage("Uploading image ....");
+			const imageUrl = await uploadImage(fileToUpload, fileType);
+			// STEP 2: Create post
+			setMessage("Creating image publication ....");
+			try {
+				await create({
+					content: caption,
+					contentFocus: ContentFocus.IMAGE,
+					locale: "en",
+					collect: {
+						type: CollectPolicyType.NO_COLLECT,
+					},
+					// reference: ReferencePolicyType.FOLLOWERS_ONLY, // only followers can interact
+					media: [
+						{
+							url: imageUrl,
+							mimeType: fileType,
+						},
+					],
+				});
+				setCaption("");
+				setFileToUpload(null);
+				setFileType("");
+				setMessage("Publication posted.");
+			} catch (e) {
+				setMessage("Error on post " + e);
+			}
+		} else {
+			setMessage("Creating text publication ....");
+			// text post
+			try {
+				await create({
+					content: caption,
+					contentFocus: ContentFocus.TEXT,
+					locale: "en",
+					// reference: ReferencePolicyType.FOLLOWERS_ONLY, // only followers can interact
+				});
+				setCaption("");
+				setMessage("Publication posted.");
+			} catch (e) {
+				setMessage("Error on post " + e);
+			}
+		}
+		setTxActive(false);
 	};
 
 	return (
 		<div className="mt-5 flex flex-wrap flex-col pb-10">
-			<div className=" w-full px-5 py-2 bg-primary rounded-xl mb-2">
-				<label className="block uppercase  text-xl font-bold text-center">{publisher.handle}</label>
-			</div>
-			<div className="bg-primary px-2">
+			<ProfileSwitcher />
+			<div className="bg-primary px-2 mt-5 rounded-xl">
 				<label className="block uppercase text-xs font-bold mb-2">
 					Choose a photo and click post.
 				</label>
@@ -84,9 +110,11 @@ const PublicationComposer = ({ publisher }) => {
 					onChange={(e) => setCaption(e.target.value)}
 				/>
 
-				<div className="flex flex-row justify-end align-start w-full bg-primary pb-2">
+				<div className="flex flex-row justify-end w-full bg-primary pb-2">
+					<span className="font-main text-message mr-5">{message}</span>
 					<button
-						className="font-main px-5 text-white rounded-lg bg-background hover:bg-secondary "
+						className="font-main px-5 text-white rounded-lg bg-background enabled:hover:bg-secondary border border-red-500"
+						disabled={txActive}
 						onClick={createPublication}
 					>
 						post

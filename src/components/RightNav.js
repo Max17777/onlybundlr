@@ -7,9 +7,9 @@ const RightNav = () => {
 	// const { data, loading, hasMore, next } = useProfilesToFollow({ limit: 5 });
 	const { data: profiles, loading, hasMore, next } = useExploreProfiles({ limit: 10 });
 	const [suggestedProfileHandles, setSuggestedProfileHandles] = useState([
-		"onlyllamas.test",
-		"lotsofllamas.test",
-		"LlamasInLisbon.test",
+		"allllamas.test",
+		"llamarama.test",
+		"thedancingllama.test",
 	]);
 
 	return (

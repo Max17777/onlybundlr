@@ -10,7 +10,7 @@ import {
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import LoginButton from "../components/LoginButton";
-
+import ProfileSwitcher from "../components/ProfileSwitcher";
 const ContentFeed = () => {
 	const { data: activeProfile, loading: profileLoading } = useActiveProfile();
 	const { login, error: loginError, isPending: isLoginPending } = useWalletLogin();
@@ -29,15 +29,10 @@ const ContentFeed = () => {
 		profileId: activeProfile?.id,
 		limit: 10,
 	});
-	console.log("feed=", feed);
 
 	return (
 		<div className="flex flex-col w-3/6 bg-background w-full px-5">
-			<div className="w-full px-5 py-2 bg-primary rounded-xl mb-2 mt-2">
-				<label className="block uppercase  text-xl font-bold text-center">
-					{activeProfile?.handle}
-				</label>
-			</div>
+			<ProfileSwitcher />
 			{!isConnected && (
 				<div className="object-center self-center mt-[20%]">
 					<LoginButton />
@@ -45,6 +40,14 @@ const ContentFeed = () => {
 			)}
 			{isConnected && (
 				<div>
+					{!activeProfile && (
+						<div className="object-center self-center mt-[5%] text-xl ml-5">
+							you don't have an active profile, please{" "}
+							<a href="/edit-profile" className="underline">
+								create one
+							</a>
+						</div>
+					)}
 					{!feed ||
 						(feed.length === 0 && (
 							<div className="object-center self-center mt-[5%] text-xl ml-5">

@@ -10,6 +10,7 @@ module.exports = {
 			primary: "#D3D9EF",
 			secondary: "#DBDEE9",
 			contast: "#403F3E",
+			message: "#f50505",
 		},
 		extend: {},
 	},
