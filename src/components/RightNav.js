@@ -13,9 +13,9 @@ const RightNav = () => {
 	]);
 
 	return (
-		<div className="w-2/6 h-screen sticky top-0 pl-2 pt-5 bg-background">
+		<div className="w-2/6 h-screen sticky top-0 pt-5 bg-background px-5">
 			<h1 className="font-main bg-primary">Suggested Profiles</h1>
-			<div className="flex flex-col">
+			<div className="flex flex-col ">
 				{suggestedProfileHandles.map((suggestedProfileHandle, id) => {
 					return <SuggestedProfile key={id} handle={suggestedProfileHandle} />;
 				})}

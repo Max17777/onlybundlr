@@ -141,7 +141,10 @@ const EditProfileDetails = ({ profile }) => {
 				<label className="block uppercase text-xs font-bold mb-2">Cover Picture</label>
 				{profile?.coverPicture && !fileToUpload && (
 					<img
-						src={profile.coverPicture?.original.url.replace("ipfs://", "https://ipfs.io/ipfs/")}
+						src={profile.coverPicture?.original?.url?.replace(
+							"ipfs://",
+							"https://ipfs.io/ipfs/",
+						)}
 						alt="profile_pic"
 					/>
 				)}
