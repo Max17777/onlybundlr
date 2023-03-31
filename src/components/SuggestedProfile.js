@@ -8,8 +8,8 @@ const SuggestedProfile = ({ handle }) => {
 
 	useEffect(() => {
 		if (profile) {
-			setProfilePicture(profile.picture?.original.url.replace("ipfs://", "https://ipfs.io/ipfs/"));
-			setCoverPicture(profile.coverPicture?.original.url.replace("ipfs://", "https://ipfs.io/ipfs/"));
+			setProfilePicture(profile.picture?.original.url);
+			setCoverPicture(profile.coverPicture?.original.url);
 			console.log(profile);
 		}
 	}, [loading]);
@@ -18,7 +18,7 @@ const SuggestedProfile = ({ handle }) => {
 		<div className="relative" key={profile?.id}>
 			{coverPicture && (
 				<img
-					className="absolute top-0 left-0 h-32 w-full object-cover px-1 py-1 "
+					className="rounded-lg absolute top-0 left-0 h-32 w-full object-cover px-1 py-1 "
 					src={coverPicture}
 				/>
 			)}

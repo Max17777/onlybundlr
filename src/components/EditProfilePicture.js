@@ -56,11 +56,7 @@ const EditProfilePicture = ({ profile }) => {
 		<div className="w-[600px] mt-10 flex flex-col  bg-primary px-1 py-1 rounded-lg mb-10">
 			<label className="font-main block uppercase text-xs font-bold mb-2">Profile Picture</label>
 			{profile?.picture && !fileToUpload && (
-				<img
-					width="600"
-					src={profile.picture?.original.url.replace("ipfs://", "https://ipfs.io/ipfs/")}
-					alt="profile_pic"
-				/>
+				<img width="600" src={profile.picture?.original.url} alt="profile_pic" />
 			)}
 			{fileToUpload && <img src={URL.createObjectURL(fileToUpload)} alt="profile_pic" />}
 			<div className="flex flex-row justify-start px-2 py-1 ">

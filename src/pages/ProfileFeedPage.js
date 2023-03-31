@@ -29,12 +29,6 @@ const ProfileFeed = () => {
 			let profilePictureURL = profile.picture?.original.url;
 			let coverPictureURL = profile.coverPicture?.original.url;
 
-			if (profilePictureURL && profilePictureURL.indexOf("ipfs://") !== -1) {
-				profilePictureURL = profilePictureURL.replace("ipfs://", "https://ipfs.io/ipfs/");
-			}
-			if (coverPictureURL && coverPictureURL.indexOf("ipfs://") !== -1) {
-				coverPictureURL = coverPictureURL.replace("ipfs://", "https://ipfs.io/ipfs/");
-			}
 			setProfilePicture(profilePictureURL);
 			setCoverPicture(coverPictureURL);
 			setFollowing(profile.__isFollowedByMe);
@@ -43,7 +37,7 @@ const ProfileFeed = () => {
 
 	return (
 		<div className="w-3/6 bg-background">
-			<div className="sticky top-0 relative bg-primary border border-2 border-secondary px-2 h-62 mt-5 w-fit rounded-xl">
+			<div className="top-0 relative bg-primary border border-2 border-secondary px-2 h-62 mt-5 w-fit rounded-xl">
 				<h1 className="font-main">{profile?.handle}</h1>
 				<p className="font-main text-sm">
 					{profile?.stats.totalPublications} Posts * {profile?.stats.totalCollects} Likes *{" "}

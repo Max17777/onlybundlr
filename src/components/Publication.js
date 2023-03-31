@@ -24,8 +24,8 @@ const Publication = ({ id, content, description, media, publisher }) => {
 					return (
 						<img
 							width="600"
-							className="bg-primary px-1 py-1"
-							src={picture.original?.url.replace("ipfs://", "https://ipfs.io/ipfs/")}
+							className="bg-primary px-1 py-1 rounded-xl"
+							src={picture.original?.url}
 						/>
 					);
 				})}

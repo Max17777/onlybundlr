@@ -44,12 +44,7 @@ const EditCoverPicture = ({ profile }) => {
 	return (
 		<div className="w-full mt-10 flex flex-col  bg-primary px-1 py-1 rounded-lg">
 			<label className="block uppercase text-xs font-bold mb-2">Cover Picture</label>
-			{profile?.coverPicture && (
-				<img
-					src={profile.coverPicture?.original.url.replace("ipfs://", "https://ipfs.io/ipfs/")}
-					alt="profile_pic"
-				/>
-			)}
+			{profile?.coverPicture && <img src={profile.coverPicture?.original.url} alt="profile_pic" />}
 			{fileToUpload && <img src={URL.createObjectURL(fileToUpload)} alt="profile_pic" />}
 			<div className="flex flex-row justify-start px-2 py-1 ">
 				<input
