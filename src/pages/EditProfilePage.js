@@ -12,6 +12,7 @@ import EditProfileDetails from "../components/EditProfileDetails";
 import EditProfilePicture from "../components/EditProfilePicture";
 import LoginButton from "../components/LoginButton";
 import ProfileSwitcher from "../components/ProfileSwitcher";
+import BundlrBalance from "../components/BundlrBalance";
 
 const EditProfile = () => {
 	const { isConnected } = useAccount();
@@ -45,11 +46,13 @@ const EditProfile = () => {
 			)}
 			{isConnected && (
 				<div className="flex flex-wrap flex-col">
-					<ProfileSwitcher />
+					<ProfileSwitcher showCreateNew={true} />
+					<BundlrBalance />
 
 					{activeProfile && (
 						<>
 							{!activeProfileLoading && <EditProfileDetails profile={activeProfile} />}
+
 							{!activeProfileLoading && <EditProfilePicture profile={activeProfile} />}
 						</>
 					)}

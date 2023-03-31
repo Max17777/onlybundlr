@@ -57,15 +57,17 @@ const EditProfileDetails = ({ profile }) => {
 		await update({ name, bio, coverPicture, attributes });
 		setMessage("Profile updated.");
 		setTxActive(false);
-		// await doUploadFollowPolicy();  TODO
+		//await doUploadFollowPolicy();
 	};
 
 	const doUploadFollowPolicy = async () => {
 		console.log("updating follow policy followFee=", followFee);
+		console.log("updating follow policy profile.ownedBy=", profile.ownedBy);
+
 		await updateFollowPolicy({
-			type: FollowPolicyType.CHARGE,
-			amount: followFee,
-			recipient: profile.ownedBy,
+			profileId: profile.id,
+			amount: { currency: "matic", value: followFee },
+			followPolicy: { type: FollowPolicyType.CHARGE },
 		});
 	};
 
@@ -98,22 +100,25 @@ const EditProfileDetails = ({ profile }) => {
 		}
 	};
 	return (
-		<div className="w-full mt-2 flex flex-col bg-primary px-1 py-1 rounded-lg">
-			<div className="w-full ml-2">
-				<label className="block uppercase text-xs font-bold mb-2">Personal Information</label>
-				<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+		<div className="w-[600px] mt-2 flex flex-col bg-primary px-1 py-1 rounded-lg">
+			<div className="ml-2">
+				<label className="font-main block uppercase text-xs font-bold mb-2">
+					Personal Information
+				</label>
+				<label className="font-main block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
 					Name
 				</label>
 				<input
 					className="appearance-none block bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
 					id="name"
 					type="text"
+					size="50"
 					value={name || ""}
 					onChange={(e) => setName(e.target.value)}
 				/>
 			</div>
 			<div className="w-full ml-2">
-				<label>Bio</label>
+				<label className="font-main uppercase">Bio</label>
 				<textarea
 					className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 					id="bio"
@@ -126,7 +131,7 @@ const EditProfileDetails = ({ profile }) => {
 			</div>
 
 			<div className="w-full ml-2 mt-5">
-				<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+				<label className="font-main block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
 					Subscription Fee (MATIC)
 				</label>
 				<input
@@ -138,9 +143,10 @@ const EditProfileDetails = ({ profile }) => {
 				/>
 			</div>
 			<div className="w-full mt-10 flex flex-col  bg-primary px-1 py-1 rounded-lg">
-				<label className="block uppercase text-xs font-bold mb-2">Cover Picture</label>
+				<label className="font-main block uppercase text-xs font-bold mb-2">Cover Picture</label>
 				{profile?.coverPicture && !fileToUpload && (
 					<img
+						width="600"
 						src={profile.coverPicture?.original?.url?.replace(
 							"ipfs://",
 							"https://ipfs.io/ipfs/",

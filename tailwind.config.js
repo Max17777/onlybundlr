@@ -3,7 +3,7 @@ module.exports = {
 	content: ["./src/**/*.{js,jsx,ts,tsx}"],
 	theme: {
 		fontFamily: {
-			main: ["Roboto"],
+			main: ["Space Grotesk"],
 		},
 		colors: {
 			background: "#FEF4EE",

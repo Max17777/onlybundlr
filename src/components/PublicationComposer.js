@@ -46,7 +46,7 @@ const PublicationComposer = ({ publisher }) => {
 					collect: {
 						type: CollectPolicyType.NO_COLLECT,
 					},
-					// reference: ReferencePolicyType.FOLLOWERS_ONLY, // only followers can interact
+					reference: { type: ReferencePolicyType.FOLLOWERS_ONLY }, // only followers can interact
 					media: [
 						{
 							url: imageUrl,
@@ -69,7 +69,7 @@ const PublicationComposer = ({ publisher }) => {
 					content: caption,
 					contentFocus: ContentFocus.TEXT,
 					locale: "en",
-					// reference: ReferencePolicyType.FOLLOWERS_ONLY, // only followers can interact
+					reference: { type: ReferencePolicyType.FOLLOWERS_ONLY }, // only followers can interact
 				});
 				setCaption("");
 				setMessage("Publication posted.");
@@ -82,9 +82,9 @@ const PublicationComposer = ({ publisher }) => {
 
 	return (
 		<div className="mt-5 flex flex-wrap flex-col pb-10">
-			<ProfileSwitcher />
+			<ProfileSwitcher showCreateNew={false} />
 			<div className="bg-primary px-2 mt-5 rounded-xl">
-				<label className="block uppercase text-xs font-bold mb-2">
+				<label className="font-main block uppercase text-xs font-bold mb-2">
 					Choose a photo and click post.
 				</label>
 				<div className="px-2 py-2 text-sm text-white rounded-lg bg-secondary">
@@ -99,11 +99,11 @@ const PublicationComposer = ({ publisher }) => {
 						name="files[]"
 					/>
 				</div>
-				<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+				<label className="font-main block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
 					Caption
 				</label>
 				<input
-					className="w-full appearance-none block bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+					className="font-main w-full appearance-none block bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
 					id="name"
 					type="text"
 					value={caption || ""}

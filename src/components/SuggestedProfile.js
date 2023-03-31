@@ -27,7 +27,7 @@ const SuggestedProfile = ({ handle }) => {
 				<div className="pl-2 pt-2 flex flex-row bg-secondary opacity-50  px-1 py-1">
 					{profilePicture && (
 						<img
-							className="inline-block h-10 w-10 mb-1 rounded-full ring-2 ring-white"
+							className="inline-block h-10 w-10 mb-1 rounded-none ring-2 ring-white"
 							src={profilePicture}
 							alt={handle}
 						/>

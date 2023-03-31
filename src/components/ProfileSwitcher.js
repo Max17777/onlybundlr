@@ -27,7 +27,7 @@ import EditProfilePicture from "../components/EditProfilePicture";
 import EditCoverPicture from "../components/EditCoverPicture";
 import LoginButton from "../components/LoginButton";
 
-const ProfileSwitcher = () => {
+const ProfileSwitcher = ({ showCreateNew }) => {
 	const [message, setMessage] = useState("");
 	const [txActive, setTxActive] = useState(false);
 	const [createProfileMode, setCreateProfileMode] = useState(false);
@@ -50,7 +50,6 @@ const ProfileSwitcher = () => {
 			setMessage("Creating profile ...");
 			const tx = await createNewProfile(newProfileHandle);
 			setMessage("Profile created.");
-
 			console.log("creating profile tx=", tx);
 		} catch (e) {
 			setMessage("Error creating profile " + e);
@@ -70,7 +69,7 @@ const ProfileSwitcher = () => {
 		<div className="w-fit mt-2 flex flex-col bg-primary px-1 py-1 rounded-lg">
 			<div className="flex flex-col  w-full">
 				<div className="flex flex-row  w-full px-5 py-2 ">
-					<label className="block uppercase tracking-wide text-gray-700 text-s font-bold">
+					<label className="font-main block uppercase tracking-wide text-gray-700 text-s font-bold">
 						Handle:
 					</label>
 					{!createProfileMode && (
@@ -89,13 +88,14 @@ const ProfileSwitcher = () => {
 											</option>
 										))}
 							</select>
-
-							<button
-								className="ml-10 font-main px-5 text-white rounded-lg bg-background hover:bg-secondary "
-								onClick={() => setCreateProfileMode(true)}
-							>
-								Create New
-							</button>
+							{showCreateNew && (
+								<button
+									className="ml-10 font-main px-5 text-white rounded-lg bg-background hover:bg-secondary "
+									onClick={() => setCreateProfileMode(true)}
+								>
+									Create New
+								</button>
+							)}
 						</div>
 					)}
 					{createProfileMode && (

@@ -32,7 +32,7 @@ const ContentFeed = () => {
 
 	return (
 		<div className="flex flex-col w-3/6 bg-background px-5">
-			<ProfileSwitcher />
+			<ProfileSwitcher showCreateNew={false} />
 			{!isConnected && (
 				<div className="object-center self-center mt-[20%]">
 					<LoginButton />
@@ -41,7 +41,7 @@ const ContentFeed = () => {
 			{isConnected && (
 				<div>
 					{!activeProfile && (
-						<div className="object-center self-center mt-[5%] text-xl ml-5">
+						<div className="font-main object-center self-center mt-[5%] text-xl ml-5">
 							you don't have an active profile, please{" "}
 							<a href="/edit-profile" className="underline">
 								create one
@@ -50,7 +50,7 @@ const ContentFeed = () => {
 					)}
 					{!feed ||
 						(feed.length === 0 && (
-							<div className="object-center self-center mt-[5%] text-xl ml-5">
+							<div className="font-main object-center self-center mt-[5%] text-xl ml-5">
 								your feed appears to be empty, try following more accounts
 							</div>
 						))}

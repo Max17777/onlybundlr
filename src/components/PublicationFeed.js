@@ -1,12 +1,6 @@
 import React from "react";
 import Publication from "../components/Publication";
-import {
-	usePublications,
-	usePublication,
-	useProfile,
-	useExplorePublications,
-	useSearchPublications,
-} from "@lens-protocol/react";
+import { usePublications } from "@lens-protocol/react";
 
 const PublicationFeed = ({ profile }) => {
 	const { data: publications, error, loading, hasMore } = usePublications({ profileId: profile.id });
