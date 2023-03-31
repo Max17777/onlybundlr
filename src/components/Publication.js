@@ -9,7 +9,7 @@ const Publication = ({ id, content, description, media, publisher }) => {
 		>
 			<div className="flex flex-row bg-secondary">
 				<img
-					className="inline-block h-12 w-12 mb-1 rounded-full ring-2 ring-white"
+					className="inline-block h-8 w-8 mb-1 mt-1 ml-1 rounded-full ring-2 ring-white"
 					src={publisher.picture?.original.url}
 					alt={publisher.handle}
 				/>

@@ -10,7 +10,7 @@ export const upload = async (data) => {
 		const bundlr = await getBundlr();
 		const serialized = JSON.stringify(data);
 
-		// get cost to upload and fund if needed
+		// only fund if needed
 		const price = await bundlr.getPrice(new Blob([serialized]).size);
 		const balance = await bundlr.getLoadedBalance();
 
@@ -20,6 +20,7 @@ export const upload = async (data) => {
 		} else {
 			console.log("funding not needed, balance sufficient");
 		}
+
 		const tx = await bundlr.upload(serialized, {
 			tags: [{ name: "Content-Type", value: "application/json" }],
 		});

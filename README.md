@@ -16,19 +16,26 @@ When building on Lens+Bundlr, you start with a highly scalable infrastructure, t
 
 ## OnlyBundlr
 
+### Goals
+
 In this developer quest, we'll build OnlyBundlr, a web3 social app for the creator economy. Inspired by wildly successful platforms like OnlyFans and Patreon, we'll build a social network where creators can create a profile and set a fee required to follow them. Creators can post text and images to their feed, which only paid followers can view. For people following creators, we'll present a curated feed showing posts from people they pay to follow only. 
 
-Finally, we'll show how Lens+Bundlr puts creators in control of their data. We'll show how the profile you build, including your content and followers, is totally portable. A creator could easily build up a large profile on OnlyBundlr, and then take that profile and move it elsewhere. Creators building on Lens+Bundlr are never at risk of being de-platformed, or even of suffering when a social network goes out of business. As Lens is built on top of smart contracts on the Polygon blockchain, and leverages Bundlr's Data Availability layer built on Arweave, your data is guaranteed to be there forever. As both Polygon and Arweave are decentralized, your data is also censorship resistant. 
+Finally, we'll show how Lens+Bundlr puts creators in control of their data. We'll show how the profile you build, including your content and followers, is totally portable. A creator could easily build up a large profile on OnlyBundlr, and then take that profile and move it elsewhere. Creators building on Lens+Bundlr are never at risk of being de-platformed, or even of suffering when a social network goes out of business. As Lens is built on top of smart contracts on the Polygon blockchain, and uses Bundlr as a Data Availability layer, your data is guaranteed to be there forever. As both Polygon and Arweave are decentralized, your data is also censorship resistant. 
 
-The focus of this developer quest is on learning how to use Bundlr and Lens, we'll assume you already have a working understanding of JavaScript, React, and Tailwind. In the GitHub repository for this project, you can clone a branch that has the UI fully built out already. That way you can focus on building out business logic using the Lens and Bundlr SDKs.
+### Prerequisites
 
-I like building projects that look cool, I want to be inspired by the UI. To give this project an extra bit of flair, I used Stable Diffusion to create images in the style of some of my favorite artists. Each sample profile is based on a different artist.  
+To complete this tutorial, you should already understand [JavaScript](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/), React, and Tailwind. You don't need to be a UI guru, as I've built a project starter template that already has all the UI pieces you need, but you should feel comfortable working with existing UI code. 
 
-And when you're done building this project, we'll gift you a free-mint NFT to celebrate your achievement. 
 
-### How Bundlr Works
+### Outcomes
 
-Storing data permanently on Bundlr is a four step process that can be done from any JavaScript / TypeScript application:
+There are two levels to this quest, if you want to learn the basics and build a fun project, all you have to do is follow along and complete all the steps I've laid for you. Then, if you want to take things a step further, there are three coding challenges at the end that will help push your skills to the next level. 
+  
+Finally, when you're done, we'll gift you a free-mint NFT to celebrate your achievement. 
+
+## How Bundlr Works
+
+Storing data permanently on Bundlr is a four-step process that can be done from any JavaScript / TypeScript application:
 
 1. Connect to a Bundlr node
 2. Fund that node [(using any of the many tokens we support)](https://docs.bundlr.network/sdk/using-other-currencies)
@@ -79,11 +86,11 @@ const tx = await bundlr.upload(data, {
 console.log(`File uploaded ==> https://arweave.net/${tx.id}`);
 ```
 
-### How Lens Works
+## How Lens Works
 
 Lens provides multiple ways to interact with the protocol, including interacting directly with the smart contracts, using their GraphQL API and using their [React hooks.](https://docs.lens.xyz/docs/sdk-react-intro) The React hooks abstract away much of the complexity of using the lower-level protocol, so that's how we'll do it.
 
-Before we dig into the React hooks, let's take a look at what happens when you create a image post on lens.
+Before we dig into the React hooks, let's take a look at what happens when you create an image post on Lens.
 
 ![](./LensWorkflow.png)
 
@@ -96,11 +103,39 @@ Everything on Lens is stored in structured metadata, any mistakes in creating th
 
 But ... more on that in a bit.
 
+### Mainnet vs Testnet
+
+When working with Lens, you need to have a handle, each wallet address can have multiple handles, with exactly one active at a given time. Handle names are immutable, once you pick one you can't change it. 
+
+Lens has both a mainnet and a testnet, the mainnet is where you release production dApps and the testnet is where you work while building your dApp. Mainnet handles are in the format `handle.lens,` and testnet handles are in the format `handle.test`. Currently access to the mainnet is controlled by a whitelist, you need to get added to the whitelist in order to mint a handle. On testnet, anyone can create a handle and build / interact with Lens dApps. 
+
+We will build OnlyBundlr on the testnet.
+
 ## Architecture
 
 ## Project Setup
+(TODO: Update URLS once the project is moved to Bundlr GitHub)
+
+All of the code for this project is contained in a [GitHub repository](https://github.com/lukecd/onlybundlr), there are two branches
+
+- main: Contains the fully-functional project. It is recommended you use this as a reference while building your own project and refer back to it if you get stuck.
+- framework: Contains just the UI components, all of the Bundlr and Lens code is removed.
+
+To get started, clone the framework repository using the following commands
+
+```console
+git clone -b framework git@github.com:lukecd/onlybundlr.git
+cd onlybundlr
+
+```
+
+:::Note
+To earn the NFT, you start with the framework project and build the Bundlr and Lens pieces yourself using this tutorial. If you just copy the main branch and submit that, our backend will automatically detect the copy, and your wallet address with be blacklisted. 
+:::
 
 ## Bundlr Utility Functions
+
+I've abstracted out the Bundlr functionality we'll use for OnlyBundlr into a set of utility functions. If you're going to focus your attention on one part of this quest, definitely take the time to make sure you grok each and every one of these functions. These functions are totally portable and can be copy and pasted into any project needing permanent storage. 
 
 All of the interactions with Bundlr will be via a set of utility functions accessed by our React components. The first utility function, `getBundlr()` sets up a reference to a `WebBundlr` object and returns it. By abstracting away all of this setup code into a common utility function, we create a single place to store details like the node address and currency used to pay. This way if you want to switch your dApp from the devnet to the mainnet, you only have to adjust parameters in a single place. 
 
@@ -121,9 +156,57 @@ export const getBundlr = async () => {
 };
 ```
 
-The second utility function accepts an image and a file type, then it checks the price to upload that image, funds that amount and finally uploads the file. This function will cause the browser wallet to popup twice, once to sign the funding transaction and once to sign the upload transaction.
+2. `utils/get-balance-matic.js`
 
-2. `utils\upload-image.js`
+Our Edit Profile UI has an option to fund a Bundlr node to pay for uploads, this utility function will be called to get the current funded balance. Note that node balances are recorded in atomic units, a number format that increases accuracy when doing floating point math in JavaScript. To make things easier to understand, this function converts the atomic balance into an easy-to-read format before returning it.
+
+
+```js
+import { WebBundlr } from "@bundlr-network/client";
+import { getBundlr } from "./get-bundlr";
+
+// gets the loaded balance in MATIC, not atomic units
+export const getBalanceMatic = async () => {
+	try {
+		const bundlr = await getBundlr();
+		const atomicBalance = await bundlr.getLoadedBalance();
+		console.log("got atomicBalance=", atomicBalance);
+		return bundlr.utils.unitConverter(atomicBalance).toString();
+	} catch (e) {
+		console.log("error on upload ", e);
+	}
+	return "";
+};
+```
+
+3. `utils/fund-node.js`
+
+As a pair to the previous function, this function will also be called from our Edit Profile UI to increase the amount funded on the current node. 
+
+```js
+import { WebBundlr } from "@bundlr-network/client";
+import { getBundlr } from "./get-bundlr";
+import BigNumber from "bignumber.js";
+
+// takes the specified amount, converts to atomic units and funds the node
+export const fundNode = async (fundAmount) => {
+	try {
+		const bundlr = await getBundlr();
+		const fundAmountParsed = new BigNumber(fundAmount).multipliedBy(bundlr.currencyConfig.base[1]);
+
+		const tx = await bundlr.fund(fundAmountParsed);
+		return "Node funded";
+	} catch (e) {
+		console.log("error on upload ", e);
+		return "Error on fund: " + e;
+	}
+	return "";
+};
+```
+
+The second utility function accepts an image and a file type, then it checks the price to upload that image, checks the current node balance, adds additional funds if needed, finally uploads the file. This function will cause the browser wallet to popup twice, once to sign the funding transaction and once to sign the upload transaction.
+
+2. `utils/upload-image.js`
 
 ```js
 import fileReaderStream from "filereader-stream";
@@ -136,8 +219,15 @@ export const uploadImage = async (fileToUpload, fileType) => {
 	try {
 		const dataStream = fileReaderStream(fileToUpload);
 		const price = await bundlr.getPrice(fileToUpload.size);
-		console.log("funding...");
-		await bundlr.fund(price);
+		const balance = await bundlr.getLoadedBalance();
+
+		// only fund if needed
+		if (price.isGreaterThanOrEqualTo(balance)) {
+			console.log("funding");
+			await bundlr.fund(price);
+		} else {
+			console.log("funding not needed, balance sufficient");
+		}
 
 		const tx = await bundlr.upload(dataStream, {
 			tags: [{ name: "Content-Type", value: fileType }],
@@ -169,10 +259,16 @@ export const upload = async (data) => {
 		const bundlr = await getBundlr();
 		const serialized = JSON.stringify(data);
 
-		// get the size in bytes of the data
+		// only fund if needed
 		const price = await bundlr.getPrice(new Blob([serialized]).size);
-		console.log("funding");
-		await bundlr.fund(price);
+		const balance = await bundlr.getLoadedBalance();
+
+		if (price.isGreaterThanOrEqualTo(balance)) {
+			console.log("funding");
+			await bundlr.fund(price);
+		} else {
+			console.log("funding not needed, balance sufficient");
+		}
 
 		const tx = await bundlr.upload(serialized, {
 			tags: [{ name: "Content-Type", value: "application/json" }],
@@ -255,3 +351,4 @@ export const compressImage = async (file, maxSize) => {
 ## Challenges
 ### UI Challenge
 ### Encryption Challenge
+### DIY Challege

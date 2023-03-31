@@ -32,8 +32,8 @@ const RightNav = () => {
 			<div className="flex flex-row justify-center font-main text-6xl mb-3">
 				<SiSpringCreators /> OnlyBundlr
 			</div>
-			<h1 className="font-main bg-primary">Suggested Profiles</h1>
-			<div className="flex flex-col ">
+			<h1 className="font-main bg-primary rounded-xl pl-1">Suggested Profiles</h1>
+			<div className="flex flex-col">
 				{suggestedProfileHandles.map((suggestedProfileHandle, id) => {
 					return <SuggestedProfile key={id} handle={suggestedProfileHandle} />;
 				})}

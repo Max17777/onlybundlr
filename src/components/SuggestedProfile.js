@@ -18,16 +18,16 @@ const SuggestedProfile = ({ handle }) => {
 		<div className="relative" key={profile?.id}>
 			{coverPicture && (
 				<img
-					className="absolute top-0 left-0 h-32 w-full object-cover px-1 py-1"
+					className="absolute top-0 left-0 h-32 w-full object-cover px-1 py-1 "
 					src={coverPicture}
 				/>
 			)}
 
 			<div className="h-32 w-full ">
-				<div className="pl-2 pt-2 flex flex-row bg-secondary opacity-50  px-1 py-1">
+				<div className="mx-2 mt-2 flex flex-row bg-secondary opacity-90 rounded-xl">
 					{profilePicture && (
 						<img
-							className="inline-block h-10 w-10 mb-1 rounded-none ring-2 ring-white"
+							className="ml-2 mt-1 inline-block h-8 w-8 mb-1 rounded-none ring-2 ring-white rounded-xl"
 							src={profilePicture}
 							alt={handle}
 						/>

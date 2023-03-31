@@ -10,6 +10,7 @@ export const uploadImage = async (fileToUpload, fileType) => {
 		const price = await bundlr.getPrice(fileToUpload.size);
 		const balance = await bundlr.getLoadedBalance();
 
+		// only fund if needed
 		if (price.isGreaterThanOrEqualTo(balance)) {
 			console.log("funding");
 			await bundlr.fund(price);
