@@ -2,12 +2,10 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { configureChains, createClient, WagmiConfig } from "wagmi";
-import { polygonMumbai, polygon } from "wagmi/chains";
-import { alchemyProvider } from "wagmi/providers/alchemy";
+import { polygonMumbai } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { bindings as wagmiBindings } from "@lens-protocol/wagmi";
-import { LensConfig, staging } from "@lens-protocol/react";
-import { LensProvider } from "@lens-protocol/react";
+import { staging, LensProvider } from "@lens-protocol/react";
 import { localStorage } from "@lens-protocol/react/web";
 
 import LeftNav from "./components/LeftNav";

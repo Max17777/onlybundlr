@@ -29,8 +29,8 @@ const Publication = ({ id, content, description, media, publisher }) => {
 						/>
 					);
 				})}
-			<h2>{content}</h2>
-			<p>{description}</p>
+			<h2 className="ml-2 font-main">{content}</h2>
+			<p className="ml-2 font-main">{description}</p>
 		</div>
 	);
 };

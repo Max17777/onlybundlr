@@ -27,14 +27,14 @@ const SuggestedProfile = ({ handle }) => {
 				<div className="mx-2 mt-2 flex flex-row bg-secondary opacity-90 rounded-xl">
 					{profilePicture && (
 						<img
-							className="ml-2 mt-1 inline-block h-8 w-8 mb-1 rounded-none ring-2 ring-white rounded-xl"
+							className="inline-block h-8 w-8 mb-1 mt-1 ml-1 rounded-full ring-2 ring-white"
 							src={profilePicture}
 							alt={handle}
 						/>
 					)}
 
 					<h2 className="ml-2 self-center">
-						<a className="underline decoration-contast" href={"/" + handle}>
+						<a className="font-main underline decoration-contast" href={"/" + handle}>
 							{handle}
 						</a>
 					</h2>

@@ -18,7 +18,6 @@ const LoginButton = () => {
 		}
 
 		const { connector } = await connectAsync();
-		console.log("connector=", connector);
 		if (connector instanceof InjectedConnector) {
 			const signer = await connector.getSigner();
 			await login(signer);

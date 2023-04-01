@@ -1,31 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { WebBundlr } from "@bundlr-network/client";
-import { upload } from "../utils/upload";
-
-import fileReaderStream from "filereader-stream";
-import { fetchSigner } from "wagmi/actions";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
-import { InjectedConnector } from "wagmi/connectors/injected";
 
 import {
-	ContentFocus,
-	CollectPolicyType,
-	ReferencePolicy,
-	useCreatePost,
 	useActiveProfile,
-	useWalletLogin,
 	useCreateProfile,
 	useProfilesOwnedByMe,
 	useActiveProfileSwitch,
-	useUpdateProfileDetails,
-	useUpdateProfileImage,
-	useUpdateFollowPolicy,
-	FollowPolicyType,
 } from "@lens-protocol/react";
-import EditProfileDetails from "../components/EditProfileDetails";
-import EditProfilePicture from "../components/EditProfilePicture";
-import EditCoverPicture from "../components/EditCoverPicture";
-import LoginButton from "../components/LoginButton";
 
 const ProfileSwitcher = ({ showCreateNew }) => {
 	const [message, setMessage] = useState("");

@@ -29,7 +29,7 @@ const RightNav = () => {
 
 	return (
 		<div className="w-3/6 h-screen sticky top-0 pt-5 bg-background px-4">
-			<div className="flex flex-row justify-center font-main text-6xl mb-3">
+			<div className="flex flex-row justify-center font-logo text-6xl mb-3">
 				<SiSpringCreators /> OnlyBundlr
 			</div>
 			<h1 className="font-main bg-primary rounded-xl pl-1">Suggested Profiles</h1>
