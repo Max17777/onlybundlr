@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useActiveProfile } from "@lens-protocol/react";
 import PublicationComposer from "../components/PublicationComposer";
 import { useAccount, useConnect, useDisconnect } from "wagmi";

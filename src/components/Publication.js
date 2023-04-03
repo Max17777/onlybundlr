@@ -1,7 +1,6 @@
 import React from "react";
 
 const Publication = ({ id, content, description, media, publisher }) => {
-	console.log("media array=", media);
 	return (
 		<div
 			className="w-[580px] flex flex-col justify-center bg-primary my-5 bg-slate-300 px-1 py-1 rounded-xl"

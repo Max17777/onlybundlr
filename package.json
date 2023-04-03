@@ -4,8 +4,8 @@
 	"private": true,
 	"dependencies": {
 		"@bundlr-network/client": "^0.10.3",
-		"@lens-protocol/react": "^0.5.1",
-		"@lens-protocol/wagmi": "^0.5.1",
+		"@lens-protocol/react-web": "^0.6.0",
+		"@lens-protocol/wagmi": "^0.6.0",
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^13.5.0",

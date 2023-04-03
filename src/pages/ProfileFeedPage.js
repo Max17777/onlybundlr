@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { usePublications, useProfile, useActiveProfile } from "@lens-protocol/react";
+import { useProfile, useActiveProfile, FollowPolicyType } from "@lens-protocol/react";
 import FollowButton from "../components/FollowButton";
 import PublicationFeed from "../components/PublicationFeed";
 
-const ProfileFeed = () => {
+const ProfileFeedPage = () => {
 	const [profilePicture, setProfilePicture] = useState("");
 	const [coverPicture, setCoverPicture] = useState("");
-	const [followPrice, setFollowPrice] = useState(10); // todo figure this out later
+	const [followFee, setFollowFee] = useState(0);
+	const [followCurrency, setFollowCurrency] = useState(0);
 	const [currentHandle, setCurrentHandle] = useState("");
 
 	const { data: activeProfile, loading: activeProfileLoading } = useActiveProfile();
@@ -32,6 +33,13 @@ const ProfileFeed = () => {
 			setProfilePicture(profilePictureURL);
 			setCoverPicture(coverPictureURL);
 			setFollowing(profile.__isFollowedByMe);
+
+			if (profile.followPolicy?.type === FollowPolicyType.CHARGE) {
+				setFollowFee(profile.followPolicy?.amount.value.toString());
+				setFollowCurrency(profile.followPolicy?.amount.asset.name);
+			} else {
+				setFollowFee(0);
+			}
 		}
 	}, [profile]);
 
@@ -52,15 +60,30 @@ const ProfileFeed = () => {
 
 				{!activeProfileLoading && !profileLoading && profile?.id !== activeProfile?.id && (
 					<div className="flex flex-row justify-end mt-2">
+						{followFee === 0 && <span className="font-main">Follow Fee: FREE</span>}
+						{followFee !== 0 && (
+							<span className="font-main">
+								Follow Fee: {followFee} {followCurrency}
+							</span>
+						)}
 						<FollowButton followee={profile} follower={activeProfile} />
 					</div>
 				)}
-
-				<h1 className="font-main text-sm mt-2 bg-secondary px-2 py-2 mb-1">{profile?.bio}</h1>
+				{profile?.id === activeProfile?.id && (
+					<h1 className="font-main text-sm mt-2 bg-secondary px-2 py-2 mb-1 ml-10">
+						{profile?.bio}
+					</h1>
+				)}
+				{profile?.id !== activeProfile?.id && (
+					<h1 className="font-main text-sm mt-2 bg-secondary px-2 py-2 mb-1">{profile?.bio}</h1>
+				)}
 			</div>
-			{!profileLoading && <PublicationFeed profile={profile} />}
+			{!profileLoading &&
+				(profile.followStatus?.isFollowedByMe || profile?.id === activeProfile?.id) && (
+					<PublicationFeed profile={profile} />
+				)}
 		</div>
 	);
 };
 
-export default ProfileFeed;
+export default ProfileFeedPage;

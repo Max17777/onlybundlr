@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { upload } from "../utils/upload";
 import { uploadImage } from "../utils/upload-image";
-import fileReaderStream from "filereader-stream";
-import { fetchSigner } from "wagmi/actions";
-// import { ContentFocus, CollectPolicyType, ReferencePolicy, useCreatePost } from "@lens-protocol/react";
 import { ContentFocus, CollectPolicyType, ReferencePolicyType, useCreatePost } from "@lens-protocol/react";
 import ProfileSwitcher from "./ProfileSwitcher";
 

@@ -1,11 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { WebBundlr } from "@bundlr-network/client";
-import { upload } from "../utils/upload";
+import React, { useState } from "react";
 import { uploadImage } from "../utils/upload-image";
-
-import { fetchSigner } from "wagmi/actions";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
-import { InjectedConnector } from "wagmi/connectors/injected";
 
 import { useUpdateProfileImage } from "@lens-protocol/react";
 

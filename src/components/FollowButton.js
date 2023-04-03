@@ -1,9 +1,16 @@
 import React from "react";
-import { useFollow, useUnfollow } from "@lens-protocol/react";
+import {
+	useFollow,
+	useUnfollow,
+	useApproveModule,
+	FollowPolicyType,
+	Amount,
+	TokenAllowanceLimit,
+} from "@lens-protocol/react";
 
 function FollowButton({ followee, follower }) {
-	console.log("followee=", followee);
-	console.log("follower=", follower);
+	console.log("FollowButton followee=", followee);
+	console.log("FollowButton follower", follower);
 
 	const {
 		execute: follow,
@@ -15,11 +22,25 @@ function FollowButton({ followee, follower }) {
 		error: unfollowError,
 		isPending: isUnfollowPending,
 	} = useUnfollow({ follower, followee });
+	const { execute: approve, error, isPending } = useApproveModule();
+
+	const approveAndFollow = async () => {
+		if (followee.followPolicy?.type === FollowPolicyType.CHARGE) {
+			await approve({
+				amount: followee.followPolicy.amount,
+				spender: follower.ownedBy,
+				limit: TokenAllowanceLimit.EXACT,
+			});
+		}
+		console.log("executing follow");
+		await follow();
+	};
 
 	if (followee.followStatus === null) {
 		return null;
 	}
-	console.log("followee=", followee);
+
+	console.log("FOLLOWBUTTOn followee.followStatus.isFollowedByMe=", followee.followStatus.isFollowedByMe);
 	if (followee.followStatus.isFollowedByMe) {
 		return (
 			<>
@@ -43,7 +64,7 @@ function FollowButton({ followee, follower }) {
 	return (
 		<>
 			<button
-				onClick={follow}
+				onClick={approveAndFollow}
 				disabled={isFollowPending || !followee.followStatus.canFollow}
 				className="ml-10 font-main px-5 text-white rounded-lg bg-background hover:bg-secondary "
 				title={

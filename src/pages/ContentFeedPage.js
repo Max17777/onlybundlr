@@ -1,24 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Publication from "../components/Publication";
-import {
-	useActiveProfile,
-	useWalletLogin,
-	isValidHandle,
-	useCreateProfile,
-	useFeed,
-} from "@lens-protocol/react";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useActiveProfile, useWalletLogin, useFeed } from "@lens-protocol/react";
+import { useAccount } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import LoginButton from "../components/LoginButton";
 import ProfileSwitcher from "../components/ProfileSwitcher";
+import { SiSpringCreators } from "react-icons/si";
+
 const ContentFeed = () => {
 	const { data: activeProfile, loading: profileLoading } = useActiveProfile();
 	const { login, error: loginError, isPending: isLoginPending } = useWalletLogin();
 	const { isConnected } = useAccount();
-	const { disconnectAsync } = useDisconnect();
-	const { connectAsync } = useConnect({
-		connector: new InjectedConnector(),
-	});
 
 	const {
 		data: feed,
@@ -32,14 +24,18 @@ const ContentFeed = () => {
 
 	return (
 		<div className="flex flex-col w-3/6 bg-background px-5">
-			<ProfileSwitcher showCreateNew={false} />
 			{!isConnected && (
-				<div className="object-center self-center mt-[20%]">
+				<div className="object-center self-center mt-5">
+					<span className="flex flex-row justify-start font-logo text-2xl mb-3">Welcome to:</span>
+					<div className="flex flex-row justify-center font-logo text-6xl mb-3">
+						<SiSpringCreators /> OnlyBundlr
+					</div>
 					<LoginButton />
 				</div>
 			)}
 			{isConnected && (
 				<div>
+					<ProfileSwitcher showCreateNew={false} />
 					{!activeProfile && (
 						<div className="font-main object-center self-center mt-[5%] text-xl ml-5">
 							you don't have an active profile, please{" "}

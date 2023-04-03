@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { WebBundlr } from "@bundlr-network/client";
 import { upload } from "../utils/upload";
 import { uploadImage } from "../utils/upload-image";
-
-import fileReaderStream from "filereader-stream";
-import { fetchSigner } from "wagmi/actions";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
-import { InjectedConnector } from "wagmi/connectors/injected";
 
 import {
 	Amount,
 	useUpdateProfileDetails,
 	useUpdateFollowPolicy,
-	FollowPolicyType,
 	useCurrencies,
-	resolveFollowPolicy,
+	FollowPolicyType,
 } from "@lens-protocol/react";
 
 const EditProfileDetails = ({ profile }) => {
@@ -27,6 +20,7 @@ const EditProfileDetails = ({ profile }) => {
 	const [fileToUpload, setFileToUpload] = useState();
 	const [fileType, setFileType] = useState();
 	const { data: currencies, error: currenciesError, loading: currenciesLoading } = useCurrencies();
+
 	const {
 		execute: update,
 		error: updateError,
@@ -39,6 +33,31 @@ const EditProfileDetails = ({ profile }) => {
 		error: isUpdateFollowPolicyError,
 	} = useUpdateFollowPolicy({ profile });
 
+	useEffect(() => {
+		if (profile) {
+			console.log("active profile ", profile);
+			setName(profile.name);
+			setBio(profile.bio || " ");
+
+			if (profile.followPolicy?.type === FollowPolicyType.CHARGE) {
+				setFollowFee(profile.followPolicy?.amount.value.toString());
+			} else {
+				setFollowFee(0);
+			}
+		}
+	}, [profile]);
+
+	useEffect(() => {
+		// if a follow-fee / currency has yet to be set, pick the first in the list
+		if (currencies && !currenciesLoading) {
+			if (profile.followPolicy?.type !== FollowPolicyType.CHARGE) {
+				setChargeCurrency(currencies[0].symbol);
+			} else {
+				setChargeCurrency(profile.followPolicy?.amount.asset.symbol);
+			}
+		}
+	}, [currenciesLoading]);
+
 	const doUpdateProfile = async () => {
 		setMessage("");
 		setTxActive(true);
@@ -48,7 +67,6 @@ const EditProfileDetails = ({ profile }) => {
 		let coverPicture = "";
 		if (fileToUpload) {
 			setMessage("Uploading cover picture ...");
-
 			coverPicture = await uploadImage(fileToUpload, fileType);
 		} else {
 			coverPicture = profile.coverPicture?.original.url || null;
@@ -62,8 +80,14 @@ const EditProfileDetails = ({ profile }) => {
 		await update({ name, bio, coverPicture, attributes });
 		setMessage("Profile updated.");
 		setTxActive(false);
-		await doUploadFollowPolicy();
+
+		// only set the fee if a number greater than 0 is supplied
+		if (followFee && followFee > 0) {
+			await doUploadFollowPolicy();
+		}
 	};
+
+	// Sets up the follow policy object
 	function resolveFollowPolicy({ followPolicyType, amount, recipient }) {
 		if (followPolicyType === FollowPolicyType.CHARGE) {
 			return {
@@ -77,21 +101,12 @@ const EditProfileDetails = ({ profile }) => {
 			type: FollowPolicyType[followPolicyType],
 		};
 	}
+	// sets the fee to follow a profile
 	const doUploadFollowPolicy = async () => {
-		console.log("profile=", profile);
 		const recipient = profile.ownedBy;
-		console.log("resolve follow policy recipient=", recipient);
 
 		const erc20 = currencies.find((c) => c.symbol === chargeCurrency);
 		const fee = Amount.erc20(erc20, followFee);
-		console.log("doUploadFollowPolicy erc20=", erc20);
-		console.log("doUploadFollowPolicy fee=", fee);
-		const temp = await resolveFollowPolicy({
-			amount: fee,
-			followPolicyType: FollowPolicyType.CHARGE,
-			recipient,
-		});
-		console.log("resolve follow policy ", temp);
 		await updateFollowPolicy({
 			followPolicy: resolveFollowPolicy({
 				amount: fee,
@@ -100,17 +115,6 @@ const EditProfileDetails = ({ profile }) => {
 			}),
 		});
 	};
-
-	useEffect(() => {
-		if (profile) {
-			setName(profile.name);
-			setBio(profile.bio || " ");
-		}
-	}, [profile]);
-
-	useEffect(() => {
-		if (currencies && !currenciesLoading) setChargeCurrency(currencies[0].symbol);
-	}, [currenciesLoading]);
 
 	const handleFile = async (e) => {
 		const newFiles = e.target.files;
@@ -152,7 +156,9 @@ const EditProfileDetails = ({ profile }) => {
 				/>
 			</div>
 			<div className="w-full ml-2">
-				<label className="font-main uppercase">Bio</label>
+				<label className="font-main block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+					Bio
+				</label>
 				<textarea
 					className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 					id="bio"
@@ -172,7 +178,7 @@ const EditProfileDetails = ({ profile }) => {
 					<input
 						className="appearance-none block bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
 						id="fee"
-						type="text"
+						type="number"
 						value={followFee}
 						onChange={(e) => setFollowFee(e.target.value)}
 					/>
@@ -188,7 +194,11 @@ const EditProfileDetails = ({ profile }) => {
 					>
 						{currencies &&
 							currencies.map((currency) => (
-								<option key={currency.symbol} value={currency.symbol}>
+								<option
+									key={currency.symbol}
+									value={currency.symbol}
+									selected={currency.symbol === chargeCurrency}
+								>
 									{currency.symbol}
 								</option>
 							))}
