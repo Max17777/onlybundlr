@@ -33,7 +33,7 @@ const ContentFeed = () => {
 					<LoginButton />
 				</div>
 			)}
-			{isConnected && (
+			{activeProfile && (
 				<div>
 					<ProfileSwitcher showCreateNew={false} />
 					{!activeProfile && (
