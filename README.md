@@ -1,135 +1,64 @@
 # Bundlr Lens Quest
-Welcome to the second Bundlr developer quest! In our first quest, we introduced you to our [SDK and each of its functions.](https://docs.bundlr.network/tutorials/bundlr-nodejs) Everyone who completed it learned all the skills needed to build a dApp using Bundlr, and earned a [beautiful interactive music NFT](https://opensea.io/assets/matic/0x1c8f5f29d1498474844d6a5160b640c674276dba/0).
+Welcome to the second Bundlr developer quest! In our first quest, we introduced our [SDK and each of its functions.](https://docs.bundlr.network/tutorials/bundlr-nodejs) Everyone who completed it learned all the skills needed to build a dApp using Bundlr, and earned an [NFT](https://opensea.io/assets/matic/0x1c8f5f29d1498474844d6a5160b640c674276dba/0).
 
-For our second developer quest, we're going bigger ... much bigger, and we're building a full social network dApp using Lens Protocol.
+For our second developer quest, we're going bigger, and we're building a full social network dApp using Lens Protocol.
 
-**Lens Protocol** is a permissionless, composable, and decentralized social graph that makes building Web3 social apps easy. In simple language, they handle all the infrastructure needed to build a social network, which frees us builders up to focus on building the business logic unique to our community. 
+## TL;DR 
+- You'll build OnlyBundlr, a social dApp to similar to OnlyFans or Patreon
+- You'll build a reusable set of Bundlr utility functions you can use anywhere you need permanent storage
+- You'll learn how to build using the Lens React hooks
+- You'll finish in about an hour
+- We'll celebrate your accomplishments with a free-mint NFT
+- Before starting, you should be comfortable with JavaScript and have basic experience working with React
+
+## Definitions 
+
+**Lens Protocol** is a permissionless, composable, and decentralized social graph that makes building Web3 social apps easy. In simple language, they handle all the infrastructure needed to build an dApp with a social component, which frees us builders up to focus on building the business logic unique to our community. 
 
 **Bundlr** is a permissionless, composable, and decentralized data layer that makes permanently storing data very easy. In simple language, we handle all the infrastructure needed to store images and posts forever, which frees up builders to focus on building the business logic unique to their community. 
 
-A long, long time ago ... way back in the dark days of web2, if you wanted to build a new social network, you'd probably start by designing a database capable of holding your data. From there, you'd look at how to scale the database to handle millions of transactions per second, then you'd look at building data centers around the world that could withstand natural disasters. Finally, after months of work and millions of VC dollars, you'd build your user interface and start testing your app. 
+## Background
 
-Things are different now.
+Historically, if you wanted to build a new social network, you'd start by designing a database capable of holding your data. From there, you'd look at how to scale the database to handle millions of transactions per second, then you'd look at building data centers around the world that could withstand natural disasters. Finally, after months of work and millions of VC dollars, you'd build your user interface and start testing your app. 
 
-When building on Lens+Bundlr, you start with a highly scalable infrastructure, then on top of that, you can rapidly build a social application. All the plumbing is there, you only need to build the user interface your community needs. What's cool about having these tools in place is they make building community-specific social networks easy. Building the next Twitter or Facebook will take more than just amazing technology, it will take a massive marketing budget and probably a fair amount of luck. But there's room for other social apps, especially smaller, community-focused ones. You could build a social app for lovers of vegan food, book lovers, digital nomads, or people who practice yoga.
+The cost to build systems like this has historically been a barrier to entry and something that prevented innovation. People may have had killer ideas, but without huge financial backing, the chance of success was low. Permissionless systems represent a total paradigm shift, they remove barriers that prevented innovation and kept people from competing. 
+
+When building on Lens+Bundlr, you start with a highly scalable infrastructure, then on top of that, you can rapidly build a social application. All the plumbing is there, you only need to build the user interface your community needs. What's cool about having these tools in place is they make building community-specific social networks easy. 
 
 
 ## OnlyBundlr
 
-TODO: OnlyBundlr screenshot or maybe gif
+![OnlyBundlr](https://github.com/lukecd/onlybundlr/blob/main/quest-images/OnlyBundlrOverview.gif?raw=true)
 
 ### Goals
 
 In this developer quest, we'll build OnlyBundlr, a web3 social app for the creator economy. Inspired by wildly successful platforms like OnlyFans and Patreon, we'll build a social network where creators can create a profile and set a fee required to follow them. Creators can post text and images to their feed, which only paid followers can view. For people following creators, we'll present a curated feed showing posts from people they pay to follow only. 
 
-Finally, we'll show how Lens+Bundlr puts creators in control of their data. We'll show how the profile you build, including your content and followers, is totally portable. A creator could easily build up a large profile on OnlyBundlr, and then take that profile and move it elsewhere. Creators building on Lens+Bundlr are never at risk of being de-platformed, or even of suffering when a social network goes out of business. As Lens is built on top of smart contracts on the Polygon blockchain, and uses Bundlr as a Data Availability layer, your data is guaranteed to be there forever. As both Polygon and Arweave are decentralized, your data is also censorship resistant. 
+Finally, we'll show how Lens+Bundlr puts creators in control of their data. We'll show how the profile you build, including your content and followers, is totally portable. A creator could easily build up a large profile on OnlyBundlr, and then take that profile and move it elsewhere. Creators building on Lens+Bundlr are never at risk of being de-platformed, or even of suffering when a social network goes out of business. As Lens is built on top of smart contracts on the Polygon blockchain, and Bundlr is built on top of Arweave, the permanence of both guarantee your content will be retrievable forever. As both Polygon and Arweave are decentralized, your data is also censorship resistant. 
 
 ### Prerequisites
 
-To complete this tutorial, you should already understand the basics of [JavaScript](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/), React, and Tailwind. You don't need to be a JavaScript guru either, but you should feel comfortable with concepts like variables, basic primitives, functions and function pointers. You don't need to be a UI guru, as I've built a framework template that already has all the UI pieces you need, but you should feel comfortable working with existing UI code. 
+To complete this tutorial, you should:
 
-In large development teams, different people build different parts of the application. For this project, imagine that the UI team just turned over their work and left it to you to implement all the backend business logic. 
-
-The last thing you'll need before starting is to have [MetaMask set up](https://www.youtube.com/watch?v=OSRfgDoVQew) and have [funded your wallet with some of MUMBAI MATIC.](https://mumbaifaucet.com/) 
+- Understand the basics of [JavaScript](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/), including concepts like variables, basic primitives, functions and function pointers.
+- [Be comfortable with React](https://react.dev/)
+- Have [MetaMask set up](https://www.youtube.com/watch?v=OSRfgDoVQew) 
+- Have [funded your wallet with some of MUMBAI MATIC.](https://mumbaifaucet.com/) 
 
 
 ### Outcomes
 
-There are two levels to this quest, if you want to learn the basics and build a fun project, all you have to do is follow along and complete all the steps I've laid for you. Then, if you want to take things a step further, there are three coding challenges at the end that will help push your skills to the next level. 
+If you follow along with the code in this quest, you will have created a fully-functional social dApp.
+
+Then, if you want to take things a step further, there are coding challenges where you build additional features to  push your skills to the next level.
   
-Finally, when you're done, we'll gift you a free-mint NFT to celebrate your achievement. 
-
-## How Bundlr Works
-
-Storing data permanently on Bundlr is a four-step process that can be done from any JavaScript / TypeScript application:
-
-1. Connect to a Bundlr node
-2. Fund that node [(using any of the many tokens we support)](https://docs.bundlr.network/sdk/using-other-currencies)
-3. Upload your data (binary data, file, or folder)
-4. Get back a transaction id you can use to download the data instantly
-
-Once your data is uploaded to a Bundlr node, we ensure it gets finalized on Arweave. It's a simple process where you pay once, and get a guarantee your data will be available forever. 
-
-Let's break it down and look at how to code things.
-
-### Step 1: Connect To A Bundlr Node
-Nodes are the main access point when working with Bundlr, we have three node addresses. Two production nodes where you pay for uploads using any of the [14 tokens we support:](https://docs.bundlr.network/sdk/using-other-currencies)
-
-- `https://node1.bundlr.network`
-- `https://node2.bundlr.network`
-
-And a Devnet node where you pay for uploads using free tokens available from faucets:
-
-- `https://devnet.bundlr.network`
-
-When connecting to a node, you pass the URL of the node, the currency you'll use to pay, and a reference to injected provider connecting to an end user's wallet. When working in the browser, the class used to access a Bundlr node is called `WebBundlr`.
-
-```js
-	const bundlr = new WebBundlr("https://devnet.bundlr.network", "matic", provider);
-```
-
-### Step 2: Fund A Node
-To fund a node, you call an async function on your `WebBundlr` object and pass in the amount you want to fund in atomic units. You can either use lazy-funding where you fund the exact amount required to pay for that upload or up-front funding, where you fund a large amount in advance and then slowly use that balance. [Excess balances can always be withdrawn if no longer needed.](https://docs.bundlr.network/sdk/basic-features/withdrawing-funds)
-
-```js
-await bundlr.fund(fundingAmount);
-```
-
-### Step 3: Upload Your Data
-You can upload ANYTHING to Bundlr, we provide functions for uploading arbitrary binary data, single files, and entire folders. You can even use the `uploadFolder()` function to upload an entire static website to the permaweb. Uploads can be tagged with custom metadata, you are welcome to use any custom name/value pairs your project requires. Files to be rendered in the browser need to be tagged with the correct `Content-Type` MIME type.
-
-```js
-const tx = await bundlr.upload(data, {
-	tags: [{ name: "Content-Type", value: fileType }],
-});
-```
-
-### Step 4: Download Your Data
-Calls to `bundlr.upload()` return a JSON object with a transaction id. The transaction id combines with `https://arweave.net` to form a URL you can use to download the file instantly. 
-
-```js
-const tx = await bundlr.upload(data, {
-	tags: [{ name: "Content-Type", value: fileType }],
-});
-console.log(`File uploaded ==> https://arweave.net/${tx.id}`);
-```
-
-## How Lens Works
-
-Lens provides multiple ways to interact with the protocol, including interacting directly with the smart contracts, using their GraphQL API and using their [React hooks.](https://docs.lens.xyz/docs/sdk-react-intro) The React hooks abstract away much of the complexity of using the lower-level protocol, so that's how we'll do it.
-
-Before we dig into the React hooks, let's take a look at what happens when you create an image post on Lens.
-
-![](./LensWorkflow.png)
-TODO: Insert Lens Workflow image
-
-1. Step 1: Upload your image to Bundlr
-2. Step 2: Take the image URL and embed it in structured post metadata. This metadata must follow the standard defined by Lens, and include all required attributes.
-3. Step 3: Upload the post metadata to Bundlr
-4. Step 4: Send the URL to the post metadata to Lens
-
-Everything on Lens is stored in structured metadata, any mistakes in creating the metadata will mean your post doesn't get indexed. The nice thing about using the React hooks is that you don't need to create the metadata. You call the related hook with the required parameter values, the metadata is generated and then passed to a callback function where you can upload it. Then the result of the callback function is automatically captured and uploaded to Lens. 
-
-But ... more on that in a bit.
-
-:::note
-As I go over each component in the project, I list the React hooks used and link to the related Lens docs. The Lens docs are still a work in progress, and some of the newer hooks aren't yet documented, the only way to learn about them is via Discord or by looking at example code. I call that out in cases where the documentation is not yet ready.
-:::
-
-### Profiles, Publications, Follows
-
-If you're going to grok Lens, you need to grok three important concepts first. 
-
-- [Profile](https://docs.lens.xyz/docs/profile): A profile represents a single "user" in the Lens ecosystem. A given wallet can have multiple profiles, only one profile can be active at a given time.
-- [Publication](https://docs.lens.xyz/docs/publication): A publication is similar to a "post" on Facebook or Instagram. It's the original content our users will be posting to OnlyBundlr
-- [Follow](https://docs.lens.xyz/docs/follow): A follow represents a single user "following" another user. As we're building a dApp to rival OnlyFans and Patreon, we'll build out support for charging people to follow.
-
-Lens also has [comments,](https://docs.lens.xyz/docs/comment) [mirrors,](https://docs.lens.xyz/docs/mirror) and [collects](https://docs.lens.xyz/docs/collect), however to keep this project simple, we're not going to build them. 
+When you're done, we'll gift you a free-mint NFT to celebrate your achievement. 
 
 
 ### Mainnet vs Testnet
 
-TODO: Graphic showing one wallet having multiple handles, show .test vs .lens extensions
+![](https://i.imgur.com/UHahmKx.png)
+
 
 When working with Lens, you need to have a handle, each wallet address can have multiple handles, with exactly one active at a given time. Handle names are immutable, once you pick one you can't change it. 
 
@@ -146,37 +75,46 @@ We prepared this quest in both written and video forms to make sure there's some
 ## Project Setup
 (TODO: Update URLS once the project is moved to Bundlr GitHub)
 
-All of the code for this project is contained in a [GitHub repository](https://github.com/lukecd/onlybundlr), there are two branches
+Think of this quest like a coloring book. Just as a coloring book creates structure for you to make art, we've created a framework project you'll use to build a full application. The pieces you build will help you learn Bundlr and Lens.
 
-- main: Contains the fully-functional project. It is recommended you use this as a reference while building your own project and refer back to it if you get stuck.
-- framework: Contains just the UI components, all of the Bundlr and Lens code is removed.
+All of the code for this project is contained in the [GitHub repository](https://github.com/lukecd/onlybundlr), there are two branches
+
+- **main:** Contains the fully-functional project. Use this as a reference while building your own project and refer back to it if you get stuck.
+- **framework:** Contains UI components, most of the Bundlr and Lens code is removed. This branch is the foundation you should start with when building your quest.
 
 To get started, clone the framework repository using the following commands
 
 ```console
 git clone -b framework git@github.com:lukecd/onlybundlr.git
 cd onlybundlr
-
 ```
 
 If you clone with `framework` branch and try interacting with the project, you'll notice that it generally loads and some things work while others don't yet work.
 
-Take a moment and look at the code, you'll see multiple places where a function is empty and there's a comment saying, **"QUESTDOOOORS: Complete this"**. This is a note to you that you'll need to code that section yourself using what you've learned here. All the answers are contained in the quest, read everything carefully and you'll be done in about an hour.
-
-:::note
-To earn the NFT, start with the framework project and build the Bundlr and Lens pieces yourself using this tutorial. If you just copy the main branch and submit that, our backend will automatically detect the copy, and your wallet address with be blacklisted. 
-:::
+Take a moment and look at the code, you'll see multiple places where a function is empty and there's a comment saying, **"BUILDOOOORS: Complete this"**. This is a note to you that you'll need to code that section yourself using what you've learned here. All the answers are contained in the quest, read everything carefully and finish the quest in about an hour.
 
 ## Utils, Components, Pages
 
-TODO: Screenshot of VS Code showing project outline
+![](https://i.imgur.com/y8bKNxv.png)
 
-If you look at the layout of files in our framework project, you'll notice three folders `utils`, `components`, and `pages`. We'll start by building out the `utils` section by building a reusable library of Bundlr utility functions. Then we'll build out a library of reusable `components,` and finally, we'll combine those components in different forms to build out our `pages`.
+
+If you look at the layout of files in our framework project, you'll notice three folders `utils`, `components`, and `pages`. We'll start by building out the `utils` section by building a reusable library of Bundlr utility functions. Then we'll build out a library of reusable `components,`. The `pages` section contains code to combine your components together, there's only one file in here you'll need to complete. 
+
+## Lens React Hooks
+React hooks are an abstraction that allows developers to encapsulate and reuse stateful logic, simplifying the process of building in React. The Lens SDK includes a collection of React Hooks containing all you need to interact with the Lens Protocol. OnlyBundlr will use the React hooks to help simplify development. 
+
 
 
 ## Bundlr Utility Functions
 
-I've abstracted out the Bundlr functionality we'll use for OnlyBundlr into a set of utility functions. If you're going to focus your attention on one part of this quest, definitely take the time to make sure you grok each and every one of these functions. These functions are totally portable and can be copied and pasted into any project needing permanent storage. 
+Storing data permanently on Bundlr is a four-step process that can be done from any JavaScript / TypeScript application:
+
+1. Connect to a Bundlr node
+2. Fund that node [(using any of the many tokens we support)](https://docs.bundlr.network/sdk/using-other-currencies)
+3. Upload your data (binary data, file, or folder)
+4. Get back a transaction id you can use to download the data instantly
+
+In this next section, we'll build utility functions for each. 
 
 
 ### Utils: Setting Up WebBundlr
@@ -192,8 +130,6 @@ import { ethers } from "ethers";
 
 export const getBundlr = async () => {
 	const provider = new ethers.providers.Web3Provider(window.ethereum);
-	const signer = provider.getSigner();
-	console.log("getBundlr signer=", signer);
 
 	const bundlr = new WebBundlr("https://devnet.bundlr.network", "matic", provider, {
 		providerUrl: "https://matic-mumbai.chainstacklabs.com",
@@ -206,7 +142,7 @@ export const getBundlr = async () => {
 
 ### Utils: Getting Bundlr Node Balance
 
-Our Edit Profile UI has an option to fund a Bundlr node to pay for uploads, this utility function will be called to get the current funded balance. Note that node balances are recorded in atomic units, a number format that increases accuracy when doing floating point math in JavaScript. To make things easier to understand, this function converts the atomic balance into an easy-to-read format before returning it.
+Our Edit Profile UI has an option to fund a Bundlr node to pay for uploads, the utility function `bundlr.getLoadedBalance()` will be called to get the current funded balance. Note that node balances are recorded in atomic units, a number format that increases accuracy when doing floating point math in JavaScript. To make things easier to understand, this function converts the atomic balance into an easy-to-read format before returning it.
 
 File name: `utils/get-balance-matic.js`
 
@@ -219,7 +155,6 @@ export const getBalanceMatic = async () => {
 	try {
 		const bundlr = await getBundlr();
 		const atomicBalance = await bundlr.getLoadedBalance();
-		console.log("got atomicBalance=", atomicBalance);
 		return bundlr.utils.unitConverter(atomicBalance).toString();
 	} catch (e) {
 		console.log("error on upload ", e);
@@ -230,7 +165,7 @@ export const getBalanceMatic = async () => {
 
 ### Utils: Funding Bundlr Node
 
-As a pair to the previous function, this function will also be called from our Edit Profile UI to increase the amount funded on the current node. 
+As a pair to the previous function, the function `bundlr.fund()` will also be called from our Edit Profile UI to increase the amount funded on the current node. 
 
 File name: `utils/fund-node.js`
 
@@ -258,7 +193,7 @@ export const fundNode = async (fundAmount) => {
 
 ### Utils: Uploading Images
 
-The next utility function accepts an image and a file type, then it checks the price to upload that image, checks the current node balance, adds additional funds if needed, finally uploads the file. This function will cause the browser wallet to popup twice, once to sign the funding transaction and once to sign the upload transaction.
+The next utility function accepts an image and a file type, then it checks the price to upload that image using `bundlr.getPrice()`, checks the current node balance, adds additional funds if needed, finally uploads the file using `bundlr.upload()`. This function will cause the browser wallet to popup twice, once to sign the funding transaction and once to sign the upload transaction.
 
 
 File name: `utils/upload-image.js`
@@ -341,54 +276,6 @@ export const upload = async (data) => {
 };
 ```
 
-### Utils: Compressing Images
-
-Last up is a function to help resize images. When uploading images via Bundlr, you pay per byte, so to help keep costs down, we will resize images before posting them. In the spirit of full transparency, I should admit that ChatGPT wrote this entire function. ChatGPT is an amazing tool, especially when doing one-off tasks you don't normally have to deal with. 
-
-File name: `utils\compress-image.js`
-
-```js
-import pica from "pica";
-
-// Written by Professor ChatGPT :)
-export const compressImage = async (file, maxSize) => {
-	const image = new Image();
-	image.src = URL.createObjectURL(file);
-
-	return new Promise((resolve, reject) => {
-		image.onload = async () => {
-			const canvas = document.createElement("canvas");
-			const width = image.width;
-			const height = image.height;
-
-			if (width > maxSize || height > maxSize) {
-				const scale = Math.min(maxSize / width, maxSize / height);
-				canvas.width = width * scale;
-				canvas.height = height * scale;
-			} else {
-				canvas.width = width;
-				canvas.height = height;
-			}
-
-			const picaInstance = pica();
-			const result = await picaInstance.resize(image, canvas);
-
-			result.toBlob(async (blob) => {
-				const compressedFile = new File([blob], file.name, {
-					type: file.type,
-					lastModified: Date.now(),
-				});
-				resolve(compressedFile);
-			}, file.type);
-		};
-
-		image.onerror = () => {
-			reject(new Error("Failed to load image"));
-		};
-	});
-};
-```
-
 ## App.js
 
 Lens works in conjunction with the [WAGMI](https://wagmi.sh/) hooks for React which abstract out low-level wallet interactions. Both Lens and WAGMI use the React provider pattern, where setup happens in your top-most file (`App.js` or `index.js`), and then is made available to child components by wrapping those child components in a provider tag set.
@@ -404,7 +291,6 @@ const lensConfig = {
 	bindings: wagmiBindings(),
 	environment: staging,
 	sources: ["onlybundlr"],
-	storage: localStorage(),
 };
 ```
 
@@ -422,8 +308,7 @@ import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { polygonMumbai } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { bindings as wagmiBindings } from "@lens-protocol/wagmi";
-import { staging, LensProvider } from "@lens-protocol/react";
-import { localStorage } from "@lens-protocol/react/web";
+import { staging, LensProvider } from "@lens-protocol/react-web";
 
 import LeftNav from "./components/LeftNav";
 import RightNav from "./components/RightNav";
@@ -443,7 +328,6 @@ const lensConfig = {
 	bindings: wagmiBindings(),
 	environment: staging,
 	sources: ["onlybundlr"],
-	storage: localStorage(),
 };
 
 function App() {
@@ -473,9 +357,8 @@ export default App;
 
 ## Profiles
 
-When working with Lens, each wallet address can have multiple profiles. Each profile can have its own follow settings, either allowing anyone to follow or charging for a follow. Since we're building a dApp to rival OnlyFans or Patreon, we will implement the charge functionality. When setting up your profile, you can specify a fee to follow (using WMATIC, WETH, USDC, DAI, NCT), and then people who follow you will have to pay when executing the follow. 
+When working with Lens, each wallet address can have multiple profiles. Each profile can have its own follow settings, either allowing anyone to follow or charging for a follow. Since we're building a dApp to similar to OnlyFans or Patreon, we will implement the charge functionality. When setting up your profile, you can specify a fee to follow (using WMATIC, WETH, USDC, DAI, NCT), and then people who follow you will have to pay when executing the follow. 
 
-Finally, we'll "follower-gate" profiles by making posts available only to followers.
 
 ### Component: LoginButton
 
@@ -486,9 +369,7 @@ In order to interact with Lens, you need to login first. This involves a simple 
 
 We will wrap various components of our app with a check to see if the user is logged in and then show the login button if not. By abstracting much of the login logic into this component, we make it easy to put the button anywhere. 
 
-I'm going to share a little secret with you, modern software development is about half actual coding and half copy and pasting. Who knows, in the ChatGPT era, we might even get to the point where copy and pasting is more than 50%. When you're learning to code, it's important to grok the basics, but when you're working in a paid job, all that matters is you release working code as quickly as possible. Code when you have to, but copy and paste from documentation and tutorials when you can. 
-
-The [code below is mostly from the Lens docs,](https://docs.lens.xyz/docs/use-wallet-login) I just pasted it in and added my own custom styling. 
+The [code below is mostly from the Lens docs,](https://docs.lens.xyz/docs/use-wallet-login) I just added my own custom styling. 
 
 ```
 import { useWalletLogin } from "@lens-protocol/react";
@@ -542,8 +423,7 @@ React Hooks Used
 - `useActiveProfileSwitch` (Not currently documented)
 - [`useCreateProfile`](https://docs.lens.xyz/docs/use-create-profile)
 
-TODO: Profile switcher UI screenshot
-![](./quest-images/profile-switcher.png)
+![](https://i.imgur.com/uwC8K0P.png)
 
 The profile switcher serves two roles. First, in a drop-down menu, it lists all active profiles, allowing you to switch between profiles by changing which is currently active in the UI component. Second, given a "handle name" it lets you create a new handle. A status message is updated to show each step of the process.
 
@@ -707,7 +587,8 @@ React hooks used:
 - `useUpdateFollowPolicy` (Not currently documented)
 - [`useCurrencies`](https://docs.lens.xyz/docs/use-currencies)
 
-TODO: Screenshot of edit profile details component
+![](https://i.imgur.com/dc1yW05.png)
+
 
 TODO: The code works, but I don't know where to get testnet wETH to pay the fees. I'm chatting with Lens support about this and will update when I do.
 
@@ -1038,10 +919,11 @@ export default EditProfileDetails;
 React hooks used:
 - [`useUpdateProfileImage`](https://docs.lens.xyz/docs/use-update-profile-image)
 
-TODO: EditProfilePicture UI screenshot
+![](https://i.imgur.com/a2z0FSl.png)
+
 
 :::note
-At this point in the quest, you should grok how to use our utility functions to save data to Bundlr, how to read and write Lens data using the Lens React hooks and how to wire our `upload` function pointer into different React hooks. As we're repeating similar actions with different hooks, we'll assume you know the basics and skip over some of the explanations given earlier. If you are struggling to understand anything so far, I recommend you go back and re-read everything before continuing. 
+At this point in the quest, you should understand how to use our utility functions to save data to Bundlr, how to read and write Lens data using the Lens React hooks and how to wire our `upload` function pointer into different React hooks. As we're repeating similar actions with different hooks, we'll assume you know the basics and skip over some of the explanations given earlier. If you are struggling to understand anything so far, I recommend you go back and re-read everything before continuing. 
 :::
 
 In `EditProfilePicture` we use the `useUpdateProfileImage` Lens React hook. At setup, we pass in a reference to the active profile and then we're returned a pointer to a function we can call to update the profile image. 
@@ -1144,9 +1026,10 @@ export default EditProfilePicture;
 
 ### Component: BundlrBalance
 
-TODO: Screen capture of the `BundlrBalance` component. 
+![](https://i.imgur.com/c6YFeyL.png)
 
-When working with Bundlr, you pay once, and your uploads are available forever. You can either lazy-fund uploads, where you pay per upload, or up-front fund, where you fund in advance and then slowly use that balance. Funding involves transferring tokens from your wallet to the Bundlr node, which means your wallet (MetaMask) will pop up and have you sign and confirm the transaction. To streamline interactions with OnlyBundlr and reduce the number of wallet popups, [it's recommended you up-front fund around 0.5 MUMBAI MATIC or so.](https://mumbaifaucet.com/) 
+
+When working with Bundlr, you pay once, and your uploads are available forever. You can either lazy-fund uploads, where you pay per upload, or up-front fund, where you fund in advance and then slowly use that balance. Funding involves transferring tokens from your wallet to the Bundlr node, which means your wallet (MetaMask) will pop up and have you sign and confirm the transaction. To streamline interactions with OnlyBundlr and reduce the number of wallet popups, [it's recommended you up-front fund around ~0.5 MUMBAI MATIC.](https://mumbaifaucet.com/) 
 
 The `BundlrBalance` component uses the `getBalanceMatic` utility function to get your current balance, and `fundNode` utility function to add additional funds. 
 
@@ -1232,175 +1115,6 @@ const BundlrBalance = () => {
 export default BundlrBalance;
 ```
 
-### Page: EditProfilePage
-
-React hooks used:
-
-- [`useActiveProfile`](https://docs.lens.xyz/docs/use-active-profile)
-
-TODO: Diagram showing the EditProfilePage page broken down by component
-
-Ok, are you ready to see the magic of componentizing your code? The page `EditProfilePage` starts out by using `useActiveProfile` to get a reference to the active profile, then it builds a page by combining all the components we built earlier into a single page. Where needed, `EditProfilePage` passes a reference to the active profile to its child components.
-
-Here's the full code for the page:
-
-```js
-import React from "react";
-import { useAccount } from "wagmi";
-import { useActiveProfile } from "@lens-protocol/react";
-import EditProfileDetails from "../components/EditProfileDetails";
-import EditProfilePicture from "../components/EditProfilePicture";
-import LoginButton from "../components/LoginButton";
-import ProfileSwitcher from "../components/ProfileSwitcher";
-import BundlrBalance from "../components/BundlrBalance";
-
-const EditProfile = () => {
-	const { isConnected } = useAccount();
-	const { data: activeProfile, loading: activeProfileLoading } = useActiveProfile();
-	return (
-		<div className="flex flex-col w-3/6 bg-background w-full">
-			{!isConnected && (
-				<div className="object-center self-center mt-[20%]">
-					<LoginButton />
-				</div>
-			)}
-			{isConnected && (
-				<div className="flex flex-wrap flex-col">
-					<ProfileSwitcher showCreateNew={true} />
-					<BundlrBalance />
-
-					{activeProfile && (
-						<>
-							{!activeProfileLoading && <EditProfileDetails profile={activeProfile} />}
-
-							{!activeProfileLoading && <EditProfilePicture profile={activeProfile} />}
-						</>
-					)}
-				</div>
-			)}
-		</div>
-	);
-};
-
-export default EditProfile;
-```
-
-### Component: FollowButton
-
-React hooks used:
-
-- [`useFollow`](https://docs.lens.xyz/docs/use-follow)
-- [`useUnfollow`](https://docs.lens.xyz/docs/use-unfollow)
-- [`useApproveModule`](https://github.com/lens-protocol/lens-sdk/blob/main/examples/web-wagmi/src/misc/UseApproveModule.tsx)
-
-TODO: screen shot of the follow / unfollow button
-
-TODO: I'm not clear how which faucet to get testnet tokens from in order to test paying. I've got a support ticket open with Lens and will update this when I get an answer
-
-Ok, cool, cool, cool. Now that we can create profiles, we need a way to follow and unfollow profiles. The `FollowButton` component is passed a reference to two profiles (followee, follower). The component checks if `follower` is currently following `followee`, and renders a button that says "unfollow" if currently following and "follow" if not yet following.
-
-In cases where we need to execute a follow, the `useFollow` Lens React hook is called. In cases where we need to execute an unfollow, the `useUnfollow` Lens React hook is called. 
-
-Unfollowing is pretty straightforward, we just call the `unfollow` function pointer and we're done with it. Following is a little more involved as we potentially have to pay a follow fee. In the Lens ecosystem, follow fees can be paid in any one of five different tokens. In order to transfer tokens out of your wallet, you need to give the contract explicit permission to access those tokens first. This is how Web3 wallets work and it's something you probably have experienced if you've worked with AMM swap dApps like Uniswap.
-
-To approve access to tokens with the Lens React hooks, we use the hook `useApproveModule`, which returns a function pointer that we alias to `approve`. When the user clicks "follow" in the UI, instead of immediately calling `folow`, we first check to see if the user has set a follow fee (`FollowPolicyType.CHARGE`), and then we approve access to tokens first.  
-
-When you approve access to tokens, you pass in the exact amount you want to access, the wallet address of the sender, and whether the amount should be exact or not. 
-
-```js
-const approveAndFollow = async () => {
-	if (followee.followPolicy?.type === FollowPolicyType.CHARGE) {
-		await approve({
-			amount: followee.followPolicy.amount,
-			spender: follower.ownedBy,
-			limit: TokenAllowanceLimit.EXACT,
-		});
-	}
-	await follow();
-};
-```
-
-Here's the full component code:
-
-```js
-import React from "react";
-import {
-	useFollow,
-	useUnfollow,
-	useApproveModule,
-	FollowPolicyType,
-	Amount,
-	TokenAllowanceLimit,
-} from "@lens-protocol/react";
-
-function FollowButton({ followee, follower }) {
-	const {
-		execute: follow,
-		error: followError,
-		isPending: isFollowPending,
-	} = useFollow({ follower, followee });
-	const {
-		execute: unfollow,
-		error: unfollowError,
-		isPending: isUnfollowPending,
-	} = useUnfollow({ follower, followee });
-	const { execute: approve, error, isPending } = useApproveModule();
-
-	const approveAndFollow = async () => {
-		if (followee.followPolicy?.type === FollowPolicyType.CHARGE) {
-			await approve({
-				amount: followee.followPolicy.amount,
-				spender: follower.ownedBy,
-				limit: TokenAllowanceLimit.EXACT,
-			});
-		}
-		await follow();
-	};
-
-	if (followee.followStatus === null) {
-		return null;
-	}
-	if (followee.followStatus.isFollowedByMe) {
-		return (
-			<>
-				<button
-					onClick={unfollow}
-					disabled={isUnfollowPending || !followee.followStatus.canUnfollow}
-					className="ml-10 font-main px-5 text-white rounded-lg bg-background hover:bg-secondary "
-					title={
-						!followee.followStatus.canUnfollow
-							? "The previous follow request is not finalized on-chain just yet."
-							: undefined
-					}
-				>
-					Unfollow
-				</button>
-				{unfollowError && <p>{unfollowError.message}</p>}
-			</>
-		);
-	}
-
-	return (
-		<>
-			<button
-				onClick={approveAndFollow}
-				disabled={isFollowPending || !followee.followStatus.canFollow}
-				className="ml-10 font-main px-5 text-white rounded-lg bg-background hover:bg-secondary "
-				title={
-					!followee.followStatus.canFollow
-						? "The previous unfollow request is not finalized on-chain just yet."
-						: undefined
-				}
-			>
-				Follow
-			</button>
-			{followError && <p>{followError.message}</p>}
-		</>
-	);
-}
-
-export default FollowButton;
-```
 
 ### Component: SuggestedProfile
 
@@ -1408,7 +1122,8 @@ React hooks used
 
 - [`useProfile`](https://docs.lens.xyz/docs/use-profile) 
 
-TODO: Screenshot of full dApp highlighting right nav
+![](https://i.imgur.com/YQ0CqjS.jpg)
+
 
 You probably noticed the right side of OnlyBundlr has four suggested profiles for you to follow. This right side is built using first a component called `RightNav` that acts as a parent, it creates a series of `SuggestedProfile` components, one for each profile shown. 
 
@@ -1483,11 +1198,12 @@ I also created an OnlyBundlr logo and include that on the right-hand side too.
 import React, { useState, useEffect } from "react";
 import SuggestedProfile from "../components/SuggestedProfile";
 import { useExploreProfiles } from "@lens-protocol/react";
-
+import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { SiSpringCreators } from "react-icons/si";
 
 const RightNav = () => {
 	const [suggestedProfileHandles, setSuggestedProfileHandles] = useState([]);
+	const { isConnected } = useAccount();
 
 	useEffect(() => {
 		const profiles = [
@@ -1508,15 +1224,20 @@ const RightNav = () => {
 
 	return (
 		<div className="w-3/6 h-screen sticky top-0 pt-5 bg-background px-4">
-			<div className="flex flex-row justify-center font-logo text-6xl mb-3">
-				<SiSpringCreators /> OnlyBundlr
-			</div>
-			<h1 className="font-main bg-primary rounded-xl pl-1">Suggested Profiles</h1>
-			<div className="flex flex-col">
-				{suggestedProfileHandles.map((suggestedProfileHandle, id) => {
-					return <SuggestedProfile key={id} handle={suggestedProfileHandle} />;
-				})}
-			</div>
+			{isConnected && (
+				<>
+					<div className="flex flex-row justify-center font-logo text-6xl mb-3">
+						<SiSpringCreators /> OnlyBundlr
+					</div>
+
+					<h1 className="font-main bg-primary rounded-xl pl-1">Suggested Profiles</h1>
+					<div className="flex flex-col">
+						{suggestedProfileHandles.map((suggestedProfileHandle, id) => {
+							return <SuggestedProfile key={id} handle={suggestedProfileHandle} />;
+						})}
+					</div>
+				</>
+			)}
 		</div>
 	);
 };
@@ -1531,7 +1252,8 @@ Rock-n-roll! If you made it this far, then congratulations are in order. You now
 
 ### Component: Publication
 
-TODO: Screenshot of a publication
+![](https://i.imgur.com/Eaf4V1c.jpg)
+
 
 The `Publication` component renders a single publication (post) to the screen. We'll use it in two places, our main feed showing posts from everyone we subscribe to and in a profile-specific feed showing posts from a given profile. This component is pure React, no Bundlr or Lens integration. The data shown is passed in as variables.
 
@@ -1625,132 +1347,6 @@ const PublicationFeed = ({ profile }) => {
 export default PublicationFeed;
 ```
 
-### Page: ProfileFeedPage
-
-React hooks used
-
-- [`useProfile`](https://docs.lens.xyz/docs/use-profile) 
-- [`useActiveProfile`](https://docs.lens.xyz/docs/use-active-profile) 
-
-The `ProfileFeedPage` shows profile details and a list of publications for a given profile. This page uses a slightly different design from earlier pages. With all our other pages and components, we use React to pass variables between each component. For this page, I wanted to create a page that would allow us to specify a profile name in the URL and then load that data. 
-
-So when working in your local development environment, any of these URLs will load the profile whose handle is in the URL.
-
-- [http://localhost:3000/llamaanime.test](http://localhost:3000/llamaanime.test)
-- [http://localhost:3000/llamakahlo.test](http://localhost:3000/llamakahlo.test)
-- [http://localhost:3000/llamafigurine.test](http://localhost:3000/llamakahlo.test)
-- [http://localhost:3000/llamabasquiat.test](http://localhost:3000/llamakahlo.test)
-- [http://localhost:3000/llamablackandwhite.test](http://localhost:3000/llamakahlo.test)
-
-To do this, I use a React `useEffect` hook which is called when the page loads. I use a regex expression to parse our the handle name and set it as a state variable:
-
-```js
-useEffect(() => {
-		// Update the document title using the browser API
-		setCurrentHandle(window.location.href);
-
-		// grab just the user's handle, the final part of the URL
-		// regex from Professor ChatGPT
-		const regex = /[^/]*$/;
-		setCurrentHandle(window.location.href.match(regex)[0]);
-	});
-```
-
-Then I pass that variable to the `useProfile` React Lens hook, render the profile details and finally pass the profile object to the `ProfileFeed` component we just made. This is another example of the magic of abstraction and componentization. We've built much of this before, here we just combine the components in different ways. 
-
-```js
-const { data: profile, loading: profileLoading } = useProfile({ handle: currentHandle });
-```
-
-:::note
-Want to know another coding secret? Nobody actually remembers how to structure regex phrases, we just look them up when needed or ask ChatGPT to write for us :)
-:::
-
-The full page code is here:
-
-```js
-import React, { useState, useEffect } from "react";
-import { useProfile, useActiveProfile, FollowPolicyType } from "@lens-protocol/react";
-import FollowButton from "../components/FollowButton";
-import PublicationFeed from "../components/PublicationFeed";
-
-const ProfileFeedPage = () => {
-	const [profilePicture, setProfilePicture] = useState("");
-	const [coverPicture, setCoverPicture] = useState("");
-	const [followFee, setFollowFee] = useState(0);
-	const [followCurrency, setFollowCurrency] = useState(0);
-	const [currentHandle, setCurrentHandle] = useState("");
-
-	const { data: activeProfile, loading: activeProfileLoading } = useActiveProfile();
-	const { data: profile, loading: profileLoading } = useProfile({ handle: currentHandle });
-
-	const [following, setFollowing] = useState(false);
-
-	useEffect(() => {
-		// Update the document title using the browser API
-		setCurrentHandle(window.location.href);
-
-		// grab just the user's handle, the final part of the URL
-		// regex from Professor ChatGPT
-		const regex = /[^/]*$/;
-		setCurrentHandle(window.location.href.match(regex)[0]);
-	});
-
-	useEffect(() => {
-		if (profile) {
-			let profilePictureURL = profile.picture?.original.url;
-			let coverPictureURL = profile.coverPicture?.original.url;
-
-			setProfilePicture(profilePictureURL);
-			setCoverPicture(coverPictureURL);
-			setFollowing(profile.__isFollowedByMe);
-
-			if (profile.followPolicy?.type === FollowPolicyType.CHARGE) {
-				setFollowFee(profile.followPolicy?.amount.value.toString());
-				setFollowCurrency(profile.followPolicy?.amount.asset.name);
-			} else {
-				setFollowFee(0);
-			}
-		}
-	}, [profile]);
-
-	return (
-		<div className="w-3/6 bg-background">
-			<div className="top-0 relative bg-primary border border-2 border-secondary px-2 h-62 mt-5 w-fit rounded-xl">
-				<h1 className="font-main">{profile?.handle}</h1>
-				<p className="font-main text-sm">
-					{profile?.stats.totalPublications} Posts * {profile?.stats.totalCollects} Likes *{" "}
-					{profile?.stats.totalFollowers} Followers
-				</p>
-				<img className="z-0 h-32 object-cover" width="600" src={coverPicture} alt="header" />
-				<img
-					className="absolute top-40 z-10 h-15 w-12 rounded-full border-2 border-white "
-					src={profilePicture}
-					alt={currentHandle}
-				/>
-
-				{!activeProfileLoading && !profileLoading && profile?.id !== activeProfile?.id && (
-					<div className="flex flex-row justify-end mt-2">
-						{followFee === 0 && <span className="font-main">Follow Fee: FREE</span>}
-						{followFee !== 0 && (
-							<span className="font-main">
-								Follow Fee: {followFee} {followCurrency}
-							</span>
-						)}
-						<FollowButton followee={profile} follower={activeProfile} />
-					</div>
-				)}
-
-				<h1 className="font-main text-sm mt-2 bg-secondary px-2 py-2 mb-1">{profile?.bio}</h1>
-			</div>
-			{!profileLoading && <PublicationFeed profile={profile} />}
-		</div>
-	);
-};
-
-export default ProfileFeedPage;
-```
-
 ### Page: ContentFeedPage
 
 React hooks used
@@ -1759,7 +1355,7 @@ React hooks used
 - [`useActiveProfile`](https://docs.lens.xyz/docs/use-active-profile)
 - [`useWalletLogin`](https://docs.lens.xyz/docs/use-wallet-login)
 
-TODO: Screenshot of the content feed page
+![OnlyBundlr](https://github.com/lukecd/onlybundlr/blob/main/quest-images/ContentFeed.gif?raw=true)
 
 Ok, you're so close to finishing.
 
@@ -1777,10 +1373,12 @@ Once the feed is loaded, we pull out the data and pass to the `Publication` comp
 import React from "react";
 import Publication from "../components/Publication";
 import { useActiveProfile, useWalletLogin, useFeed } from "@lens-protocol/react";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import LoginButton from "../components/LoginButton";
 import ProfileSwitcher from "../components/ProfileSwitcher";
+import { SiSpringCreators } from "react-icons/si";
+
 const ContentFeed = () => {
 	const { data: activeProfile, loading: profileLoading } = useActiveProfile();
 	const { login, error: loginError, isPending: isLoginPending } = useWalletLogin();
@@ -1798,14 +1396,18 @@ const ContentFeed = () => {
 
 	return (
 		<div className="flex flex-col w-3/6 bg-background px-5">
-			<ProfileSwitcher showCreateNew={false} />
 			{!isConnected && (
-				<div className="object-center self-center mt-[20%]">
+				<div className="object-center self-center mt-5">
+					<span className="flex flex-row justify-start font-logo text-2xl mb-3">Welcome to:</span>
+					<div className="flex flex-row justify-center font-logo text-6xl mb-3">
+						<SiSpringCreators /> OnlyBundlr
+					</div>
 					<LoginButton />
 				</div>
 			)}
 			{isConnected && (
 				<div>
+					<ProfileSwitcher showCreateNew={false} />
 					{!activeProfile && (
 						<div className="font-main object-center self-center mt-[5%] text-xl ml-5">
 							you don't have an active profile, please{" "}
@@ -1839,6 +1441,7 @@ const ContentFeed = () => {
 };
 
 export default ContentFeed;
+
 ```
 
 ### Component: PublicationComposer
@@ -1847,13 +1450,13 @@ React hooks used
 
 -[`useCreatePost`](https://docs.lens.xyz/docs/use-create-post)
 
-TODO: Screenshot of the publication composer
+![](https://i.imgur.com/IZydfxO.png)
 
 Ok, we can render publications on the screen, how about writing some code so you can create one?
 
 Our OnlyBundlr UI allows for creating text Publications and image publications:
 
-TODO: Screenshot showing text and image pubs
+![](https://i.imgur.com/u3JLD5E.png)
 
 As you can probably guess by now, the workflow is very similar to what you did when creating a new profile. First, you upload the image to Bundlr (using the handy utility function we wrote), then you pass that image's URL to the `execute` function exposed by the `useCreatePost` Lens React hook. That's it. Easy, huh?
 
@@ -2020,93 +1623,15 @@ const PublicationComposer = ({ publisher }) => {
 export default PublicationComposer;
 ```
 
-### Page: CreatePublicationPage
-
-React hooks used:
-
-- [`useActiveProfile`](https://docs.lens.xyz/docs/use-active-profile)
-
-The `CreatePublicationPage` page first loads the active profile, then passes it to the `PublicationComposer` component we just built. Other than that, not much happens here. The magic of componentization takes over, and code we already wrote executes.
-
-Here's the full code:
-
-```js
-import React from "react";
-import { useActiveProfile } from "@lens-protocol/react";
-import PublicationComposer from "../components/PublicationComposer";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
-import LoginButton from "../components/LoginButton";
-
-const CreatePublication = () => {
-	const { data: activeProfile, loading: profileLoading } = useActiveProfile();
-	const { isConnected } = useAccount();
-
-	return (
-		<div className="w-3/6 bg-background">
-			{!isConnected && (
-				<div className="object-center self-center mt-[20%]">
-					<LoginButton />
-				</div>
-			)}
-			{!activeProfile && (
-				<div className="object-center self-center mt-[5%] text-xl ml-5">
-					you don't have an active profile, please{" "}
-					<a href="/edit-profile" className="underline">
-						create one
-					</a>
-				</div>
-			)}
-			{isConnected && !profileLoading && activeProfile && (
-				<PublicationComposer publisher={activeProfile} />
-			)}
-		</div>
-	);
-};
-
-export default CreatePublication;
-```
-
-### Component: LeftNav
-
-The left hand navigation component is a simple React component with links to your main feed, the profile editor, and the publication composer. Here's the full code:
-
-```js
-import React from "react";
-
-import { SlHome } from "react-icons/sl";
-import { SlUser } from "react-icons/sl";
-import { AiOutlinePlus } from "react-icons/ai";
-
-const LeftNav = () => {
-	return (
-		<div className="flex flex-col w-1/6 h-screen sticky top-0  bg-background">
-			{" "}
-			<a className="mt-5 mb-2 mx-2 self-end" href="/home">
-				<SlHome className="hover:h-12 hover:w-12 ease-in-out duration-300 h-10 w-10" />
-			</a>
-			<a className="my-2 mx-2 self-end" href="/edit-profile">
-				<SlUser className="hover:h-12 hover:w-12 ease-in-out duration-300 h-10 w-10" />
-			</a>
-			<a className="my-2 mx-2 self-end" href="/create-publication">
-				<AiOutlinePlus className="hover:h-12 hover:w-12 ease-in-out duration-300 h-10 w-10 rounded-full ring-2 bg-primary hover:bg-secondary" />
-			</a>
-		</div>
-	);
-};
-
-export default LeftNav;
-
-```
-
 ## Conclusion
 
-Rock-n-roll! You did it, congratulations! If you've been sitting and coding for the last hour or so, I highly recommend you get up, walk around, maybe grab a coffee, and then return to your project.
+Rock-n-roll! You did it, congratulations! 
 
-In about an hour, you build an entire social dApp that rivals OnlyFans or Patreon. You could take this code, customize it, hire a marketing person, and launch your startup. When you build with permissionless and composable tools like Bundlr and Lens, you leverage the infrastructure work done by others to build production apps rapidly. When you pause for a moment and think about this, it's pretty amazing stuff. Even just 5 years ago, building a production-level social application like this would take months or work with a full team. You did it in an hour, siting by yourself in your bedroom. 
+In about an hour, you build an entire social dApp similar to OnlyFans or Patreon. You learned how to save data permanently using Bundlr, and you learned how to build social dApps using the Lens React hooks.
 
-That's next-level cool.
+Pat yourself on the back. You did something impressive.
 
-## Challenges
+## Bonus Challenges
 
 You learn a lot from following along with a quest, however to really level up your skills, you need to take charge and build some additional features on your own. Before sharing your quest online and submitting to earn an NFT, pick one of these challenges and add some new features. I intentionally created challenges for all experience levels, pick the one that looks the most fun.
 
@@ -2117,11 +1642,11 @@ You learn a lot from following along with a quest, however to really level up yo
 
 ## How To Submit Your Work
 
-Once you're done, [upload your project to GitHub](https://docs.github.com/en/get-started/quickstart/hello-world) and [set it up to preview on Vercel.](https://vercel.com/docs/concepts/get-started/deploy). Both GitHub and Vercel are free to use, and represent the best way to start building your portfolio as a developer.
+Once you're done, [upload your project to GitHub](https://docs.github.com/en/get-started/quickstart/hello-world) and [set it up to preview on Vercel.](https://vercel.com/docs/concepts/get-started/deploy) Both GitHub and Vercel are free to use, and represent the best way to start building your portfolio as a developer.
 
 Finally, share your work on Twitter with the hashtags `#Bundlr` and `#BundlrDeveloperQuests`, and [submit to us via this form.](https://forms.gle/BHP2UgmDqw1hPDZy5)
 
-Every week, we'll review submissions and whitelist projects that completed at least one challenge for a free-mint NFT.
+Starting the first week of May, 2023 and then every week after, we'll review submissions and whitelist successful submissions for a free-mint NFT.
 
 
 
