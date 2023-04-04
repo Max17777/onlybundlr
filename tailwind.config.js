@@ -4,7 +4,7 @@ module.exports = {
 	theme: {
 		fontFamily: {
 			main: ["Roboto"],
-			logo: ["Space Grotesk"],
+			logo: ["Source Sans Pro"],
 		},
 		colors: {
 			background: "#FEF4EE",

@@ -12,7 +12,7 @@ const Publication = ({ id, content, description, media, publisher }) => {
 					src={publisher.picture?.original.url}
 					alt={publisher.handle}
 				/>
-				<h2 className="ml-2 self-center font-main">
+				<h2 className="ml-2 self-center font-main text-bold">
 					<a className="underline decoration-contast" href={"/" + publisher.handle}>
 						{publisher.handle}
 					</a>
