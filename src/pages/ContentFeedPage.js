@@ -33,17 +33,18 @@ const ContentFeed = () => {
 					<LoginButton />
 				</div>
 			)}
+			{!activeProfile && (
+				<div className="font-main object-center self-center mt-[5%] text-xl ml-5">
+					you don't have an active profile, please{" "}
+					<a href="/edit-profile" className="underline">
+						create one
+					</a>
+				</div>
+			)}
 			{activeProfile && (
 				<div>
 					<ProfileSwitcher showCreateNew={false} />
-					{!activeProfile && (
-						<div className="font-main object-center self-center mt-[5%] text-xl ml-5">
-							you don't have an active profile, please{" "}
-							<a href="/edit-profile" className="underline">
-								create one
-							</a>
-						</div>
-					)}
+
 					{!feed ||
 						(feed.length === 0 && (
 							<div className="font-main object-center self-center mt-[5%] text-xl ml-5">
