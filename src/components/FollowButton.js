@@ -28,7 +28,9 @@ function FollowButton({ followee, follower }) {
 		if (followee.followPolicy?.type === FollowPolicyType.CHARGE) {
 			await approve({
 				amount: followee.followPolicy.amount,
-				spender: follower.ownedBy,
+				spender: "0xe7AB9BA11b97EAC820DbCc861869092b52B65C06",
+				// spender is the contract address you want to authorize to access ERC20
+				// in your wallet. In this case the follow module contract address is the spender.
 				limit: TokenAllowanceLimit.EXACT,
 			});
 		}

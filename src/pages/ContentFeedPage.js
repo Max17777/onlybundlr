@@ -41,7 +41,7 @@ const ContentFeed = () => {
 					</a>
 				</div>
 			)}
-			{activeProfile && (
+			{isConnected && activeProfile && (
 				<div>
 					<ProfileSwitcher showCreateNew={false} />
 
