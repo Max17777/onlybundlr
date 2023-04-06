@@ -1,4 +1,3 @@
-import { WebBundlr } from "@bundlr-network/client";
 import { getBundlr } from "./get-bundlr";
 
 // called to upload metadata to Bundlr, which is then passed on to Lens

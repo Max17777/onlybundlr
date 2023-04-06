@@ -1,30 +1,42 @@
 # Bundlr Lens Quest
-Welcome to the second Bundlr developer quest! In our first quest, we introduced our [SDK and each of its functions.](https://docs.bundlr.network/tutorials/bundlr-nodejs) Everyone who completed it learned all the skills needed to build a dApp using Bundlr, and earned an [NFT](https://opensea.io/assets/matic/0x1c8f5f29d1498474844d6a5160b640c674276dba/0).
 
-For our second developer quest, we're going bigger, and we're building a full social network dApp using Lens Protocol.
+Welcome to the second Bundlr developer quest! In our first quest, we introduced our [SDK and each of its functions.](https://docs.bundlr.network/tutorials/bundlr-nodejs) Everyone who completed it learned skills needed to build a dApp using Bundlr, and earned an [NFT](https://opensea.io/assets/matic/0x1c8f5f29d1498474844d6a5160b640c674276dba/0).
 
-## TL;DR 
-- You'll build OnlyBundlr, a social dApp to similar to OnlyFans or Patreon
-- You'll build a reusable set of Bundlr utility functions you can use anywhere you need permanent storage
-- You'll learn how to build using the Lens React hooks
-- You'll finish in about an hour
-- We'll celebrate your accomplishments with a free-mint NFT
-- Before starting, you should be comfortable with JavaScript and have basic experience working with React
+For our second developer quest, we're going bigger: we're building a full social network dApp using Lens Protocol.
 
-## Definitions 
+## TL;DR
 
-**Lens Protocol** is a permissionless, composable, and decentralized social graph that makes building Web3 social apps easy. In simple language, they handle all the infrastructure needed to build an dApp with a social component, which frees us builders up to focus on building the business logic unique to our community. 
+-   Before starting, you should be comfortable with JavaScript and have basic experience working with React
+-   You'll learn to build OnlyBundlr, a social dApp to similar to OnlyFans or Patreon
+-   You'll build a reusable set of Bundlr utility functions you can use anywhere you need permanent storage
+-   You'll learn how to build using the Lens React hooks
+-   Those that complete the quest will get an NFT
 
-**Bundlr** is a permissionless, composable, and decentralized data layer that makes permanently storing data very easy. In simple language, we handle all the infrastructure needed to store images and posts forever, which frees up builders to focus on building the business logic unique to their community. 
+## Time Requirements
+
+**Prep time**: 30 minutes
+**Build time**: 60 minutes
+
+## Prerequisites
+
+Prior to beginning this tutorial, you should:
+
+-   Understand the basics of [JavaScript](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/), including concepts like variables, basic primitives, functions and function pointers.
+-   [Be comfortable with React.](https://react.dev/)
+-   Have [MetaMask set up.](https://www.youtube.com/watch?v=OSRfgDoVQew)
+-   Have [funded your wallet with some of MUMBAI MATIC.](https://mumbaifaucet.com/)
+
+## About
+
+**Lens Protocol** is a permissionless, composable, and decentralized social graph that makes building Web3 social apps easy. They handle all the infrastructure needed to build a dApp with a social component, which frees us builders up to focus on building the business logic unique to our communities.
+
+**Bundlr** is a permissionless, composable and hyper-scalable data layer. We handle the infrastructure needed to store images, posts, and metadata forever. This frees up builders to focus on building the business logic unique to their communities.
 
 ## Background
 
-Historically, if you wanted to build a new social network, you'd start by designing a database capable of holding your data. From there, you'd look at how to scale the database to handle millions of transactions per second, then you'd look at building data centers around the world that could withstand natural disasters. Finally, after months of work and millions of VC dollars, you'd build your user interface and start testing your app. 
+The cost to build highly-scalable systems has historically been a barrier to entry and something that prevented innovation. People may have had killer ideas, but without huge amounts of capital, the chance of success was low. Permissionless systems represent a total paradigm shift, they remove barriers that prevented innovation and kept people from competing.
 
-The cost to build systems like this has historically been a barrier to entry and something that prevented innovation. People may have had killer ideas, but without huge financial backing, the chance of success was low. Permissionless systems represent a total paradigm shift, they remove barriers that prevented innovation and kept people from competing. 
-
-When building on Lens+Bundlr, you start with a highly scalable infrastructure, then on top of that, you can rapidly build a social application. All the plumbing is there, you only need to build the user interface your community needs. What's cool about having these tools in place is they make building community-specific social networks easy. 
-
+By leveraging Bundlr and Lens’ highly-scalable and permissionless infrastructure, builders can focus solely on building features unique to their use case. This means projects can be built in much less time for a fraction of the budget that would otherwise have been required.
 
 ## OnlyBundlr
 
@@ -32,37 +44,25 @@ When building on Lens+Bundlr, you start with a highly scalable infrastructure, t
 
 ### Goals
 
-In this developer quest, we'll build OnlyBundlr, a web3 social app for the creator economy. Inspired by wildly successful platforms like OnlyFans and Patreon, we'll build a social network where creators can create a profile and set a fee required to follow them. Creators can post text and images to their feed, which only paid followers can view. For people following creators, we'll present a curated feed showing posts from people they pay to follow only. 
+In this developer quest, we'll build OnlyBundlr, a web3 social app for the creator economy. Inspired by wildly successful platforms like OnlyFans and Patreon, we'll build a social network where creators can create a profile and set a fee required to follow them. Creators can post text and images to their feed, which only paid followers can view. For people following creators, we'll present a curated feed showing posts from people they pay to follow only.
 
-Finally, we'll show how Lens+Bundlr puts creators in control of their data. We'll show how the profile you build, including your content and followers, is totally portable. A creator could easily build up a large profile on OnlyBundlr, and then take that profile and move it elsewhere. Creators building on Lens+Bundlr are never at risk of being de-platformed, or even of suffering when a social network goes out of business. As Lens is built on top of smart contracts on the Polygon blockchain, and Bundlr is built on top of Arweave, the permanence of both guarantee your content will be retrievable forever. As both Polygon and Arweave are decentralized, your data is also censorship resistant. 
-
-### Prerequisites
-
-To complete this tutorial, you should:
-
-- Understand the basics of [JavaScript](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/), including concepts like variables, basic primitives, functions and function pointers.
-- [Be comfortable with React](https://react.dev/)
-- Have [MetaMask set up](https://www.youtube.com/watch?v=OSRfgDoVQew) 
-- Have [funded your wallet with some of MUMBAI MATIC.](https://mumbaifaucet.com/) 
-
+Finally, we'll show how Lens+Bundlr puts creators in control of their data. We'll show how the profile you build, including your content and followers, is totally portable. A creator could easily build up a large profile on OnlyBundlr, and then take that profile and move it elsewhere. Creators building on Lens+Bundlr are never at risk of being de-platformed, or even of suffering when a social network goes out of business. As Lens is built on top of smart contracts on the Polygon blockchain, and Bundlr is built on top of Arweave, the permanence of both guarantee your content will be retrievable forever. As both Polygon and Arweave are decentralized, your data is also censorship resistant.
 
 ### Outcomes
 
 If you follow along with the code in this quest, you will have created a fully-functional social dApp.
 
-Then, if you want to take things a step further, there are coding challenges where you build additional features to  push your skills to the next level.
-  
-When you're done, we'll gift you a free-mint NFT to celebrate your achievement. 
+Then, if you want to take things a step further, there are coding challenges where you build additional features to push your skills to the next level.
 
+When you're done, you'll get access to an exclusive Developer Quest 2 NFT to celebrate your achievement.
 
 ### Mainnet vs Testnet
 
 ![](https://i.imgur.com/UHahmKx.png)
 
+When working with Lens, you need to have a handle, each wallet address can have multiple handles, with exactly one active at a given time. Handle names are immutable, once you pick one you can't change it.
 
-When working with Lens, you need to have a handle, each wallet address can have multiple handles, with exactly one active at a given time. Handle names are immutable, once you pick one you can't change it. 
-
-Lens has both a mainnet and a testnet, the mainnet is where you release production dApps and the testnet is where you work while building your dApp. Mainnet handles are in the format `handle.lens,` and testnet handles are in the format `handle.test`. Currently access to the mainnet is controlled by a whitelist, you need to get added to the whitelist in order to mint a handle. On testnet, anyone can create a handle and build / interact with Lens dApps. 
+Lens has both a mainnet and a testnet, the mainnet is where you release production dApps and the testnet is where you work while building your dApp. Mainnet handles are in the format `handle.lens,` and testnet handles are in the format `handle.test`. Currently access to the mainnet is controlled by a whitelist, you need to get added to the whitelist in order to mint a handle. On testnet, anyone can create a handle and build / interact with Lens dApps.
 
 We'll build OnlyBundlr on the testnet.
 
@@ -73,37 +73,37 @@ We prepared this quest in both written and video forms to make sure there's some
 ## Architecture
 
 ## Project Setup
+
 (TODO: Update URLS once the project is moved to Bundlr GitHub)
 
 Think of this quest like a coloring book. Just as a coloring book creates structure for you to make art, we've created a framework project you'll use to build a full application. The pieces you build will help you learn Bundlr and Lens.
 
-All of the code for this project is contained in the [GitHub repository](https://github.com/lukecd/onlybundlr), there are two branches
+All of the code for this project is contained in the [GitHub repository](https://github.com/lukecd/onlybundlr), there are two branches:
 
-- **main:** Contains the fully-functional project. Use this as a reference while building your own project and refer back to it if you get stuck.
-- **framework:** Contains UI components, most of the Bundlr and Lens code is removed. This branch is the foundation you should start with when building your quest.
+-   **main:** Contains the fully-functional project. Use this as a reference while building your own project and refer back to it if you get stuck.
+-   **framework:** Contains UI components, most of the Bundlr and Lens code is removed. This branch is the foundation you should start with when building your quest.
 
-To get started, clone the framework repository using the following commands
+To get started, clone the repository and framework branch using the following commands:
 
 ```console
 git clone -b framework git@github.com:lukecd/onlybundlr.git
 cd onlybundlr
+npm install
 ```
 
-If you clone with `framework` branch and try interacting with the project, you'll notice that it generally loads and some things work while others don't yet work.
+If you clone with `framework` branch and try interacting with the project, you'll notice that it generally loads and some things work while others don't.
 
-Take a moment and look at the code, you'll see multiple places where a function is empty and there's a comment saying, **"BUILDOOOORS: Complete this"**. This is a note to you that you'll need to code that section yourself using what you've learned here. All the answers are contained in the quest, read everything carefully and finish the quest in about an hour.
+Take a moment and look at the code, you'll see multiple places where a function is empty and there's a comment saying, **"BUILDOOOORS: Complete this"**. This is a note to you that you'll need to code that section yourself using what you've learned here. All the answers are contained in the quest, read everything carefully and you'll finish the quest in 60 to 90 minutes.
 
 ## Utils, Components, Pages
 
 ![](https://i.imgur.com/y8bKNxv.png)
 
-
-If you look at the layout of files in our framework project, you'll notice three folders `utils`, `components`, and `pages`. We'll start by building out the `utils` section by building a reusable library of Bundlr utility functions. Then we'll build out a library of reusable `components,`. The `pages` section contains code to combine your components together, there's only one file in here you'll need to complete. 
+If you look at the layout of files in our framework project, you'll notice three folders `utils`, `components`, and `pages`. We'll start by building out the `utils` section by building a reusable library of Bundlr utility functions. Then we'll build out a library of reusable `components,`. The `pages` section contains code to combine your components together, there's only one file in here you'll need to complete there.
 
 ## Lens React Hooks
-React hooks are an abstraction that allows developers to encapsulate and reuse stateful logic, simplifying the process of building in React. The Lens SDK includes a collection of React Hooks containing all you need to interact with the Lens Protocol. OnlyBundlr will use the React hooks to help simplify development. 
 
-
+React hooks are an abstraction that allows developers to encapsulate and reuse stateful logic, simplifying the process of building in React. The [Lens SDK includes a collection of React Hooks](https://docs.lens.xyz/docs/sdk-react-intro) containing all you need to interact with the Lens Protocol. OnlyBundlr will use the React hooks to help simplify development.
 
 ## Bundlr Utility Functions
 
@@ -114,12 +114,13 @@ Storing data permanently on Bundlr is a four-step process that can be done from 
 3. Upload your data (binary data, file, or folder)
 4. Get back a transaction id you can use to download the data instantly
 
-In this next section, we'll build utility functions for each. 
-
+In this next section, we'll build utility functions for each.
 
 ### Utils: Setting Up WebBundlr
 
-All of the interactions with Bundlr will be via a set of utility functions accessed by our React components. The first utility function, `getBundlr()` sets up a reference to a `WebBundlr` object and returns it. By abstracting away all of this setup code into a common utility function, we create a single place to store details like the node address and currency used to pay. This way if you want to switch your dApp from the devnet to the mainnet, you only have to adjust parameters in a single place. 
+The WebBundlr class is the point of entry used when interacting with Bundlr. It connects your code to a Bundlr node, and exposes functions used for funding, and uploading.
+
+All of the interactions with Bundlr will be via a set of utility functions accessed by our React components. The first utility function, `getBundlr()` sets up a reference to a `WebBundlr` object and returns it. By abstracting away all of this setup code into a common utility function, we create a single place to store details like the node address and currency used to pay. This way if you want to switch your dApp from the devnet to the mainnet, you only have to adjust parameters in a single place.
 
 File name: `utils/get-bundlr.js`
 
@@ -144,10 +145,13 @@ export const getBundlr = async () => {
 
 Our Edit Profile UI has an option to fund a Bundlr node to pay for uploads, the utility function `bundlr.getLoadedBalance()` will be called to get the current funded balance. Note that node balances are recorded in atomic units, a number format that increases accuracy when doing floating point math in JavaScript. To make things easier to understand, this function converts the atomic balance into an easy-to-read format before returning it.
 
+:::note
+Since Lens runs on the Polygon blockchain, we'll pay Bundlr upload fees in MUMBAI MATIC during this tutorial. However, you are welcome to pay in any of the [14 supported tokens.](https://docs.bundlr.network/sdk/using-other-currencies)
+:::
+
 File name: `utils/get-balance-matic.js`
 
 ```js
-import { WebBundlr } from "@bundlr-network/client";
 import { getBundlr } from "./get-bundlr";
 
 // gets the loaded balance in MATIC, not atomic units
@@ -165,12 +169,11 @@ export const getBalanceMatic = async () => {
 
 ### Utils: Funding Bundlr Node
 
-As a pair to the previous function, the function `bundlr.fund()` will also be called from our Edit Profile UI to increase the amount funded on the current node. 
+As a pair to the previous function, the function `bundlr.fund()` will also be called from our Edit Profile UI to increase the amount funded on the current node.
 
 File name: `utils/fund-node.js`
 
 ```js
-import { WebBundlr } from "@bundlr-network/client";
 import { getBundlr } from "./get-bundlr";
 import BigNumber from "bignumber.js";
 
@@ -190,11 +193,11 @@ export const fundNode = async (fundAmount) => {
 };
 ```
 
-
 ### Utils: Uploading Images
 
 The next utility function accepts an image and a file type, then it checks the price to upload that image using `bundlr.getPrice()`, checks the current node balance, adds additional funds if needed, finally uploads the file using `bundlr.upload()`. This function will cause the browser wallet to popup twice, once to sign the funding transaction and once to sign the upload transaction.
 
+In cases where the user has up-front funded the Bundlr node with sufficient funds, the browser wallet will only popup once, to sign the upload transaction.
 
 File name: `utils/upload-image.js`
 
@@ -236,10 +239,9 @@ export const uploadImage = async (fileToUpload, fileType) => {
 
 Our next utility function, `upload()` is similar to `upload-image()` however instead of uploading an image, it uploads a JSON object containing metadata. When working with Lens, all posts, likes, comments, and profile data is structured in a JSON object. That JSON object gets uploaded to Bundlr, and the URL to the metadata is then posted to Lens.
 
-File name: `utils\upload.js`
+File name: `utils/upload.js`
 
 ```js
-import { WebBundlr } from "@bundlr-network/client";
 import { getBundlr } from "./get-bundlr";
 
 // called to upload metadata to Bundlr, which is then passed on to Lens
@@ -283,7 +285,7 @@ Lens works in conjunction with the [WAGMI](https://wagmi.sh/) hooks for React wh
 Let's first take a look at how we're setting up Lens. Pretty much everything here is boilerplate, two things to pay attention to are the environment and sources parameters. The first, `environment`, is where we specify we're on the testnet, not the mainnet, and then `sources` is where we specify our unique application id. By setting a unique application id here, we make sure that feed posts are limited to ones created by OnlyBundlr. If we left it out, we would end up showing a feed that pulled data from other apps too.
 
 :::note
-The use of the application id is a great example of how data is portable in Lens. I could easily change that application id to that of an existing commercial Lens application and build a new UI. This opens up new ways to compete and innovate, anyone with an idea for a UI can build that and leverage existing data. 
+The use of the application id is a great example of how data is portable in Lens. I could easily change that application id to that of an existing commercial Lens application and build a new UI for it. This opens up new ways to compete and innovate, anyone with an idea for a UI can build that and leverage existing data.
 :::
 
 ```js
@@ -294,7 +296,7 @@ const lensConfig = {
 };
 ```
 
-With our Lens configuration set up, we pass it to a `LensProvider` component and then use it to wrap our child components. 
+With our Lens configuration set up, we pass it to a `LensProvider` component and then use it to wrap our child components.
 
 Here's the full code for the component:
 
@@ -357,19 +359,25 @@ export default App;
 
 ## Profiles
 
-When working with Lens, each wallet address can have multiple profiles. Each profile can have its own follow settings, either allowing anyone to follow or charging for a follow. Since we're building a dApp to similar to OnlyFans or Patreon, we will implement the charge functionality. When setting up your profile, you can specify a fee to follow (using WMATIC, WETH, USDC, DAI, NCT), and then people who follow you will have to pay when executing the follow. 
-
+When working with Lens, each wallet address can have multiple profiles. Each profile can have its own follow settings, either allowing anyone to follow or charging for a follow. Since we're building a dApp to similar to OnlyFans or Patreon, we will implement the charge functionality. When setting up your profile, you can specify a fee to follow (using WMATIC, WETH, USDC, DAI, NCT), and then people who follow you will have to pay when executing the follow.
 
 ### Component: LoginButton
 
 React Hooks Used
-- [`useWalletLogin`](https://docs.lens.xyz/docs/use-wallet-login)
 
-In order to interact with Lens, you need to login first. This involves a simple wallet interaction where MetaMask will pop up and ask you to sign a message. There's no cost or gas fees to execute.
+-   [`useWalletLogin`](https://docs.lens.xyz/docs/use-wallet-login)
 
-We will wrap various components of our app with a check to see if the user is logged in and then show the login button if not. By abstracting much of the login logic into this component, we make it easy to put the button anywhere. 
+The first step in using a dApp built on Lens is to login to Lens using an EVM wallet. This involves a simple wallet interaction where MetaMask will pop up and ask you to sign a message. There's no cost or gas fees to execute. In this component, we'll build that login functionality.
 
-The [code below is mostly from the Lens docs,](https://docs.lens.xyz/docs/use-wallet-login) I just added my own custom styling. 
+:::note
+Lens supports all EVM-based wallets, in this tutorial we'll be using MetaMask, the most popular.
+:::
+
+We will wrap various components of our app with a check to see if the user is logged in and then show the login button if not. By abstracting much of the login logic into this component, we make it easy to put the button anywhere.
+
+The [code below is mostly from the Lens docs,](https://docs.lens.xyz/docs/use-wallet-login) with custom styling.
+
+File name: `components/LoginButton.js`
 
 ```
 import { useWalletLogin } from "@lens-protocol/react";
@@ -416,36 +424,37 @@ export default LoginButton;
 ```
 
 ### Component: ProfileSwitcher
+
 React Hooks Used
 
-- [`useProfilesOwnedByMe`](https://docs.lens.xyz/docs/use-profiles-owned-by-me)
-- [`useActiveProfile`](https://docs.lens.xyz/docs/use-active-profile)
-- `useActiveProfileSwitch` (Not currently documented)
-- [`useCreateProfile`](https://docs.lens.xyz/docs/use-create-profile)
+-   [`useProfilesOwnedByMe`](https://docs.lens.xyz/docs/use-profiles-owned-by-me)
+-   [`useActiveProfile`](https://docs.lens.xyz/docs/use-active-profile)
+-   `useActiveProfileSwitch` (Not currently documented)
+-   [`useCreateProfile`](https://docs.lens.xyz/docs/use-create-profile)
 
 ![](https://i.imgur.com/uwC8K0P.png)
 
-The profile switcher serves two roles. First, in a drop-down menu, it lists all active profiles, allowing you to switch between profiles by changing which is currently active in the UI component. Second, given a "handle name" it lets you create a new handle. A status message is updated to show each step of the process.
+The profile switcher serves two roles. First, in a drop-down menu, it lists all active profiles, allowing you to switch between profiles by changing which is currently active. Second, given a "handle name" it lets you create a new handle. A status message is updated to show each step of the process.
 
 :::note
-As the main goal of this project is to teach about Bundlr and Lens, I've used very verbose status messages throughout. Each step of backend interaction is documented in the UI. This would probably be too verbose for a production release, but it helps you as a student really understand each step. Components that need to show status messages do so by setting a React state variable called `message`, which is then shown in the UI. (`const [message, setMessage] = useState("");`)
+As the main goal of this project is to teach about Bundlr and Lens, I've used very verbose status messages throughout. Each step of backend interaction is documented in the UI. This would probably be too verbose for a production release, but it helps you, as a student, really understand each step. Components that need to show status messages do so by setting a React state variable called `message`, which is then shown in the UI. (`const [message, setMessage] = useState("");`)
 :::
 
-The Lens React hooks follow a pattern where hooks focused on reading data return a variable called `data` containing the data read. The hooks also return a boolean value `loading` we can use to track if the data has loaded yet. All data is loaded asynchronously, which means it's possible some page elements will load before the data has been returned. To avoid errors, our UI will check the value of the `loading` variable before trying to access the data.
+The Lens React hooks follow a pattern where hooks focused on reading data return a variable called `data` containing the data read. The hooks also return a boolean value `loading` used to track if the data has loaded yet. All data is loaded asynchronously, which means it's possible some page elements will load before the data has been returned. To avoid errors, our UI will check the value of the `loading` variable before trying to access the data.
 
-Hooks focused on writing data expose a variable called `execute`, which is a function pointer we can call later in our code when we want to execute the specific action. 
+Hooks focused on writing data expose a variable called `execute`, which is a function pointer we can call later when we want to execute the specific action.
 
-Since the Lens React hooks all return values with the same name, it's necessary to alias these names when using more than one hook. In JavaScript, we do this with the `:` operator. When this line of code `const { execute, isPending } = useActiveProfileSwitch()` becomes this line `const { execute: switchProfile, isPending } = useActiveProfileSwitch()`, the function pointer previously named `execute` is aliased to `switchProfile`. This is a common pattern we'll use throughout our code. 
+Since the Lens React hooks all return values with the same name, it's necessary to alias these names when using more than one hook. In JavaScript, we do this with the `:` operator. When this line of code `const { execute, isPending } = useActiveProfileSwitch()` becomes this line `const { execute: switchProfile, isPending } = useActiveProfileSwitch()`, the function pointer previously named `execute` is aliased to `switchProfile`. This is a common pattern we'll use throughout our code.
 
 Let's look at how we manage existing profiles first. The first hook, `useProfilesOwnedByMe` returns an array listing all profiles owned by the wallet address logged in with the `LoginButton` component we just created. The second hook `useActiveProfile` returns the one profile currently active. These two hooks return a variable named `data` that we alias to `profiles` and `activeProfile`. Each profile consists of an auto-generated unique `id` and a user-supplied unique `handle`.
 
-To swap between existing profiles, we pass the `id` of the desired profile to the `execute` function pointer returned by `useActiveProfileSwitch`. 
+To swap between existing profiles, we pass the `id` of the desired profile to the `execute` function pointer returned by `useActiveProfileSwitch`.
 
 ```
 const { data: profiles, loading: profilesLoading, hasMore, next } = useProfilesOwnedByMe();
 const { data: activeProfile, loading: activeProfileLoading } = useActiveProfile();
 const { execute: switchProfile, isPending } = useActiveProfileSwitch();
-```	
+```
 
 Let's also look at how using the Lens React hooks leads to creating efficient and easy-to-read code. Below is the HTML for the drop-down containing the list of handles owned by the active wallet. On line 2, we create an `onChange` event handler that automatically calls the `switchProfile` function pointer exposed by `useActiveProfileSwitch`. The event handler is automatically called every time the drop-down is updated, meaning the `switchProfile` function will also be called automatically.
 
@@ -469,6 +478,7 @@ Further down on line 7, we iterate over the full list of `profiles` returned by 
 ```
 
 Here's the full code for the component:
+File name: `components/ProfileSwitcher.js`
 
 ```js
 import React, { useState, useEffect } from "react";
@@ -583,29 +593,34 @@ export default ProfileSwitcher;
 
 React hooks used:
 
-- [`useUpdateProfileDetails`](https://docs.lens.xyz/docs/use-update-profile-details)
-- `useUpdateFollowPolicy` (Not currently documented)
-- [`useCurrencies`](https://docs.lens.xyz/docs/use-currencies)
+-   [`useUpdateProfileDetails`](https://docs.lens.xyz/docs/use-update-profile-details)
+-   `useUpdateFollowPolicy` (Not currently documented)
+-   [`useCurrencies`](https://docs.lens.xyz/docs/use-currencies)
 
 ![](https://i.imgur.com/dc1yW05.png)
 
+In the `EditProfileDetails` component, we set a profile's name, bio, subscription fee, and cover picture. The profile picture is not set here, that will be done in the next component. The reason we separate out the logic like this is due to the way the Lens React hooks are designed, `useUpdateProfileDetails` accepts those parameters, with the profile picture being handled by a different hook.
 
-TODO: The code works, but I don't know where to get testnet wETH to pay the fees. I'm chatting with Lens support about this and will update when I do.
-
-In the `EditProfileDetails` component, we set a profile's name, bio, subscription fee, and cover picture. The profile picture is not set here, that will be done in the next component. The reason we separate out the logic like this is due to the way the Lens React hooks are designed, `useUpdateProfileDetails` accepts those parameters, with the profile picture being handled by a different hook. 
-
-You may notice missing from the list of hooks is a hook used to determine the active profile. This is because the active profile will be retrieved at the page level and then passed into the `EditProfileDetails` component. More on that at the end of this section when we combine the components into a single page. 
+You may notice missing from the list of hooks is a hook used to determine the active profile. This is because the active profile will be retrieved at the page level and then passed into the `EditProfileDetails` component.
 
 Let's look at the two hooks used to update profile information. The first `useUpdateProfileDetails`, returns a function pointer we alias to `update` that is called to update that profile, the second, returns a function pointer we alias to `updateFollowPolicy` we use to set the follow policy.
 
 ```js
-const { execute: update, error: updateError, isPending: isUpdatePending,} = useUpdateProfileDetails({ profile, upload });
-const { execute: updateFollowPolicy, isPending: isUpdateFollowPolicyPending, error: isUpdateFollowPolicyError,} = useUpdateFollowPolicy({ profile });
+const {
+	execute: update,
+	error: updateError,
+	isPending: isUpdatePending,
+} = useUpdateProfileDetails({ profile, upload });
+const {
+	execute: updateFollowPolicy,
+	isPending: isUpdateFollowPolicyPending,
+	error: isUpdateFollowPolicyError,
+} = useUpdateFollowPolicy({ profile });
 ```
 
-When the end-user clicks `save` in the user interface, the `doUpdateProfile` function is called. This function starts out by setting a message to let the end user know we're updating profile information (line 5). Next up, we take the cover image and call our Bundlr utility function `uploadImage` and have it upload that image to Bundlr (line 10). Since we abstracted out this functionality and covered it earlier, we don't need to dig into the details now. Just call the function, let it do its magic, and wait for the result. Finally, we combine the URL to the cover photo with the name and bio entered in the UI and pass them to the `update` function pointer returned by the `useUpdateProfileDetails` React hook (line 20). Then we update the UI to let the user know we've updated the profile (line 21). 
+When the end-user clicks `save` in the user interface, the `doUpdateProfile` function is called. This function starts out by setting a message to let the end user know we're updating profile information (line 5). Next up, we take the cover image and call our Bundlr utility function `uploadImage` and have it upload that image to Bundlr (line 10). Since we abstracted out this functionality and covered it earlier, we don't need to dig into the details now. Just call the function, let it do its magic, and wait for the result. Finally, we combine the URL to the cover photo with the name and bio entered in the UI and pass them to the `update` function pointer returned by the `useUpdateProfileDetails` React hook (line 20). Then we update the UI to let the user know we've updated the profile (line 21).
 
-As `useUpdateProfileDetails` works through saving data, something interesting happens that shows the power of designing reusable code. When we set up the reference to the Lens React hook, we pass in the active profile and a pointer to the upload utility function we created in the beginning (`useUpdateProfileDetails({ profile, upload })`). You'll probably remember that this function is passed metadata as a JSON object, it then saves the metadata to Bundlr and returns the URL. This is an important piece of plumbing that holds together a Lens project, and it's one that happens automatically. By creating a reusable utility function, we can now pass it to a variety of Lens React hooks, and the data will automatically be saved. As we work through this quest, you'll notice multiple places where we pass `upload` to a Lens React hook, but since the code is already written and tested, we don't need to cover it each time. 
+As `useUpdateProfileDetails` works through saving data, something interesting happens that shows the power of designing reusable code. When we set up the reference to the Lens React hook, we pass in the active profile and a pointer to the upload utility function we created in the beginning (`useUpdateProfileDetails({ profile, upload })`). You'll probably remember that this function is passed metadata as a JSON object, it then saves the metadata to Bundlr and returns the URL. This is an important piece of plumbing that holds together a Lens project, and it's one that happens automatically. By creating a reusable utility function, we can now pass it to a variety of Lens React hooks, and the data will automatically be saved. As we work through this quest, you'll notice multiple places where we pass `upload` to a Lens React hook, but since the code is already written and tested, we don't need to cover it each time.
 
 ```js showLineNumbers
 const doUpdateProfile = async () => {
@@ -638,7 +653,7 @@ const doUpdateProfile = async () => {
 };
 ```
 
-After that, we do something similar to set the follow policy. At this point in the quest, you're probably starting to see the pattern these React hooks follow and the way they simplify development. You really can just read and write data without having to worry about how the underlying metadata or GraphQL are structured. 
+After that, we do something similar to set the follow policy. At this point in the quest, you're probably starting to see the pattern these React hooks follow and the way they simplify development. You really can just read and write data without having to worry about how the underlying metadata or GraphQL are structured.
 
 ```js
 // Sets up the follow policy object
@@ -672,11 +687,13 @@ const doUploadFollowPolicy = async () => {
 ```
 
 :::note
-When developing it's recommended you leave your follow fee set to 0, this way you can test following without having to have lots of faucet currency to pay follow fees.
+To pay follow fees while developing, you'll need testnet versions of the tokens supported. The recommended option is using wMATIC. First [request free MUMBAI MATIC](https://mumbaifaucet.com/) from the faucet, then [wrap it using the `deposit()` function of this contract.](https://mumbai.polygonscan.com/address/0x9c3c9283d3e44854697cd22d3faa240cfb032889#writeContract#F5).
+
+That said, to make things easiest, you can also leave the follow fee set to 0.
 :::
 
-
 Here's the full component code:
+File name: `components/ProfileSwitcher.js`
 
 ```js showLineNumbers
 import React, { useState, useEffect } from "react";
@@ -917,19 +934,23 @@ export default EditProfileDetails;
 ### Component: EditProfilePicture
 
 React hooks used:
-- [`useUpdateProfileImage`](https://docs.lens.xyz/docs/use-update-profile-image)
+
+-   [`useUpdateProfileImage`](https://docs.lens.xyz/docs/use-update-profile-image)
 
 ![](https://i.imgur.com/a2z0FSl.png)
 
-
 :::note
-At this point in the quest, you should understand how to use our utility functions to save data to Bundlr, how to read and write Lens data using the Lens React hooks and how to wire our `upload` function pointer into different React hooks. As we're repeating similar actions with different hooks, we'll assume you know the basics and skip over some of the explanations given earlier. If you are struggling to understand anything so far, I recommend you go back and re-read everything before continuing. 
+At this point in the quest, you should understand how to use our utility functions to save data to Bundlr, how to read and write Lens data using the Lens React hooks and how to wire our `upload` function pointer into different React hooks. As we're repeating similar actions with different hooks, we'll assume you know the basics and skip over some of the explanations given earlier. If you are struggling to understand anything so far, I recommend you go back and re-read everything before continuing.
 :::
 
-In `EditProfilePicture` we use the `useUpdateProfileImage` Lens React hook. At setup, we pass in a reference to the active profile and then we're returned a pointer to a function we can call to update the profile image. 
+In `EditProfilePicture` we use the `useUpdateProfileImage` Lens React hook. At setup, we pass in a reference to the active profile and then we're returned a pointer to a function we can call to update the profile image.
 
 ```js
-const { execute: updateProfileImage, error: updateProfileImageError, isPending: updateProfileImagePending,} = useUpdateProfileImage({profile,});
+const {
+	execute: updateProfileImage,
+	error: updateProfileImageError,
+	isPending: updateProfileImagePending,
+} = useUpdateProfileImage({ profile });
 ```
 
 This function pointer, aliased as `updateProfileImage`, is passed a URL to the new profile image. Then that URL is passed along to the `updateProfileImage` function. Since we already wrote this code and abstracted it way into utility functions, the bulk of the processing in this component can be reduced to two lines of code. Amazing.
@@ -940,6 +961,7 @@ await updateProfileImage(newProfileURL);
 ```
 
 Here's the full code for the component:
+File name: `components/EditProfilePicture.js`
 
 ```js
 import React, { useState } from "react";
@@ -1028,10 +1050,9 @@ export default EditProfilePicture;
 
 ![](https://i.imgur.com/c6YFeyL.png)
 
+When working with Bundlr, you pay once, and your uploads are available forever. You can either lazy-fund uploads, where you pay per upload, or up-front fund, where you fund in advance and then slowly use that balance. Funding involves transferring tokens from your wallet to the Bundlr node, which means your wallet (MetaMask) will pop up and have you sign and confirm the transaction. To streamline interactions with OnlyBundlr and reduce the number of wallet popups, [it's recommended you up-front fund around ~0.5 MUMBAI MATIC.](https://mumbaifaucet.com/)
 
-When working with Bundlr, you pay once, and your uploads are available forever. You can either lazy-fund uploads, where you pay per upload, or up-front fund, where you fund in advance and then slowly use that balance. Funding involves transferring tokens from your wallet to the Bundlr node, which means your wallet (MetaMask) will pop up and have you sign and confirm the transaction. To streamline interactions with OnlyBundlr and reduce the number of wallet popups, [it's recommended you up-front fund around ~0.5 MUMBAI MATIC.](https://mumbaifaucet.com/) 
-
-The `BundlrBalance` component uses the `getBalanceMatic` utility function to get your current balance, and `fundNode` utility function to add additional funds. 
+The `BundlrBalance` component uses the `getBalanceMatic` utility function to get your current balance, and `fundNode` utility function to add additional funds.
 
 Let's take a look at the funding function first:
 
@@ -1050,6 +1071,7 @@ const doFund = async () => {
 ```
 
 The full code for the component is as follows:
+File name: `components/BundlrBalance.js`
 
 ```js
 import React, { useState, useEffect } from "react";
@@ -1080,7 +1102,7 @@ const BundlrBalance = () => {
 		setCurBalance(await getBalanceMatic());
 		setFundAmount(0);
 	};
-	
+
 	return (
 		<div className="w-[600px] mt-1 flex flex-col  bg-primary px-1 py-1 rounded-lg ">
 			<label className="font-main block uppercase text-xs font-bold mb-2">
@@ -1115,17 +1137,15 @@ const BundlrBalance = () => {
 export default BundlrBalance;
 ```
 
-
 ### Component: SuggestedProfile
 
 React hooks used
 
-- [`useProfile`](https://docs.lens.xyz/docs/use-profile) 
+-   [`useProfile`](https://docs.lens.xyz/docs/use-profile)
 
 ![](https://i.imgur.com/YQ0CqjS.jpg)
 
-
-You probably noticed the right side of OnlyBundlr has four suggested profiles for you to follow. This right side is built using first a component called `RightNav` that acts as a parent, it creates a series of `SuggestedProfile` components, one for each profile shown. 
+You probably noticed the right side of OnlyBundlr has four suggested profiles for you to follow. This right side is built using first a component called `RightNav` that acts as a parent, it creates a series of `SuggestedProfile` components, one for each profile shown.
 
 Let's look at `SuggestedProfile` first. The component is passed a handle uniquely identifying a profile, the full profile data is then loaded in using the `useProfile` Lens React hook.
 
@@ -1133,7 +1153,9 @@ Let's look at `SuggestedProfile` first. The component is passed a handle uniquel
 const { data: profile, loading } = useProfile({ handle });
 ```
 
-Once loaded, we have access to all the data for that profile in the variable aliased as `profile`. From here, it's a simple matter of accessing the profile name, cover picture, and profile picture and building out the HTML. 
+Once loaded, we have access to all the data for that profile in the variable aliased as `profile`. From here, it's a simple matter of accessing the profile name, cover picture, and profile picture and building out the HTML.
+
+File name: `components/SuggestedProfile.js`
 
 ```js
 import React, { useState, useEffect } from "react";
@@ -1185,14 +1207,11 @@ const SuggestedProfile = ({ handle }) => {
 export default SuggestedProfile;
 ```
 
-
 ### Component: RightNav
-
 
 This is one component that's just pure React, there are no Lens React hooks or Bundlr interactions. I hardcoded a series of five profiles into an array. To make the page a bit more dynamic, I first shuffle the array and then use only the first four items. Each of the four chosen profile handles is passed along to a `SuggestedProfile` component and shown on the page. As you build out this component, try adding the handle of the profile you created!
 
-I also created an OnlyBundlr logo and include that on the right-hand side too. 
-
+I also created an OnlyBundlr logo and include that on the right-hand side too.
 
 ```js
 import React, { useState, useEffect } from "react";
@@ -1245,19 +1264,18 @@ const RightNav = () => {
 export default RightNav;
 ```
 
-
 ## Publications
 
-Rock-n-roll! If you made it this far, then congratulations are in order. You now understand how to build with Bundlr and how to use the React hooks for Lens. I had you build the profiles section first because it's the hardest. From here on out, everything will be downhill. 
+Rock-n-roll! You made it! Congratulations are in order. You now understand how to build with Bundlr and how to use the React hooks for Lens. The profiles section was the hardest and most involved, it's downhill from here on out.
 
 ### Component: Publication
 
 ![](https://i.imgur.com/Eaf4V1c.jpg)
 
-
 The `Publication` component renders a single publication (post) to the screen. We'll use it in two places, our main feed showing posts from everyone we subscribe to and in a profile-specific feed showing posts from a given profile. This component is pure React, no Bundlr or Lens integration. The data shown is passed in as variables.
 
-Here's the full code for the component: 
+Here's the full code for the component:
+File name: `components/Publication.js`
 
 ```js
 import React from "react";
@@ -1303,19 +1321,21 @@ export default Publication;
 ### Component: PublicationFeed
 
 React hooks used:
-- [`usePublications`](https://docs.lens.xyz/docs/use-publications)
 
-The `PublicationFeed` component loads all publications for a given profile and then renders each one as a unique `Publication` component. You'll notice when calling the `usePublications` hook, we pass in a profile id and not a full profile object. This is something to watch out for when using the Lens React hooks as some hooks expect an id, and some expect the full object. 
+-   [`usePublications`](https://docs.lens.xyz/docs/use-publications)
+
+The `PublicationFeed` component loads all publications for a given profile and then renders each one as a unique `Publication` component. You'll notice when calling the `usePublications` hook, we pass in a profile id and not a full profile object. This is something to watch out for when using the Lens React hooks as some hooks expect an id, and some expect the full object.
 
 ```js
 const { data: publications, error, loading, hasMore } = usePublications({ profileId: profile.id });
 ```
 
 :::note
-To help simplify this quest, I haven't implemented pagination of posts. I just load all of a profile's posts and render them to the screen. Obviously, this would get unwieldy if a profile has hundreds of posts, when you're coding it yourself, try [looking at the documentation](https://docs.lens.xyz/docs/use-publications) and adding pagination in as a bonus feature. 
+To help simplify this quest, I haven't implemented pagination of posts. I just load all of a profile's posts and render them to the screen. Obviously, this would get unwieldy if a profile has hundreds of posts, when you're coding it yourself, try [looking at the documentation](https://docs.lens.xyz/docs/use-publications) and adding pagination in as a bonus feature.
 :::
 
 Here's the full code for the component:
+File name: `components/PublicationFeed.js`
 
 ```js
 import React from "react";
@@ -1351,23 +1371,25 @@ export default PublicationFeed;
 
 React hooks used
 
-- [`useFeed`](https://docs.lens.xyz/docs/use-feed)
-- [`useActiveProfile`](https://docs.lens.xyz/docs/use-active-profile)
-- [`useWalletLogin`](https://docs.lens.xyz/docs/use-wallet-login)
+-   [`useFeed`](https://docs.lens.xyz/docs/use-feed)
+-   [`useActiveProfile`](https://docs.lens.xyz/docs/use-active-profile)
+-   [`useWalletLogin`](https://docs.lens.xyz/docs/use-wallet-login)
 
 ![OnlyBundlr](https://github.com/lukecd/onlybundlr/blob/main/quest-images/ContentFeed.gif?raw=true)
 
 Ok, you're so close to finishing.
 
-In the previous page, we built a feed showing a profile and all of its publications. In this page, we'll build a main feed showing posts from ALL profiles you subscribe to. 
+In this section, we'll build a main feed showing posts from ALL profiles you subscribe to.
 
-This page uses the [`useFeed`](https://docs.lens.xyz/docs/use-feed) Lens React hook which is new to us so far. Remember how a single Lens profile can interact with multiple dApps built on Lens, right? All publications made by a profile are tied back to that profile, which means your OnlyBundlr publications, Lenster publications, and LensTube publications all tie back to the same account. When we set up Lens in our `App.js`, we set an application id in the configuration of "onlybundlr". What's really cool here is the `useFeed` hook automatically picks up that value and generates a feed of only that application id. 
+This page uses the [`useFeed`](https://docs.lens.xyz/docs/use-feed) Lens React hook which is new to us so far. Remember how a single Lens profile can interact with multiple dApps built on Lens, right? All publications made by a profile are tied back to that profile, which means your OnlyBundlr publications, Lenster publications, and LensTube publications all tie back to the same account. When we set up Lens in our `App.js`, we set an application id in the configuration of "onlybundlr". What's really cool here is the `useFeed` hook automatically picks up that value and generates a feed of only that application id.
 
 :::note
-This, again is where you see the magic of Lens. You could modify this project's code to pull publications from a totally different application. Maybe you want to build a Lens app that pulls data from multiple publications. Or you could redo the UI of an existing Lens dApp to have a new feature only you imagined. Or you could create a UI for an existing Lens dApp with support for your country's spoken language. You're only limited by your creativity, there are no technological roadblocks at all.
+This, again is where you see the magic of Lens. You could modify this project's code to pull publications from a totally different application. Maybe you want to build a Lens app that pulls data from multiple publications. Or you could redo the UI of an existing Lens dApp to have a new feature only you imagined. Or you could create a UI for an existing Lens dApp with support for your country's spoken language. You're only limited by your creativity!
 :::
 
 Once the feed is loaded, we pull out the data and pass to the `Publication` component we built previously and render the page.
+
+File name: `pages/ContentFeedPage.js`
 
 ```js
 import React from "react";
@@ -1379,7 +1401,7 @@ import LoginButton from "../components/LoginButton";
 import ProfileSwitcher from "../components/ProfileSwitcher";
 import { SiSpringCreators } from "react-icons/si";
 
-const ContentFeed = () => {
+const ContentFeedPage = () => {
 	const { data: activeProfile, loading: profileLoading } = useActiveProfile();
 	const { login, error: loginError, isPending: isLoginPending } = useWalletLogin();
 	const { isConnected } = useAccount();
@@ -1440,8 +1462,7 @@ const ContentFeed = () => {
 	);
 };
 
-export default ContentFeed;
-
+export default ContentFeedPage;
 ```
 
 ### Component: PublicationComposer
@@ -1460,7 +1481,7 @@ Our OnlyBundlr UI allows for creating text Publications and image publications:
 
 As you can probably guess by now, the workflow is very similar to what you did when creating a new profile. First, you upload the image to Bundlr (using the handy utility function we wrote), then you pass that image's URL to the `execute` function exposed by the `useCreatePost` Lens React hook. That's it. Easy, huh?
 
-The `execute` function is aliased as `create`. Let's look at how we call it first for text Publications, which is a bit simpler. The `content` variable holds the message entered by the user, `contentFocus` tells Lens we're making a text post, `local` sets the natural language used (feel free to change it to match your language!), and then `reference` is where we say this post is only visible to followers. This last part is really important as we want to make sure people can use this to create and monetize their audiences. 
+The `execute` function is aliased as `create`. Let's look at how we call it first for text Publications, which is a bit simpler. The `content` variable holds the message entered by the user, `contentFocus` tells Lens we're making a text post, `local` sets the natural language used (feel free to change it to match your language!), and then `reference` is where we say this post is only visible to followers. This last part is really important as we want to make sure people can use this to create and monetize their audiences.
 
 ```js
 await create({
@@ -1469,9 +1490,9 @@ await create({
 	locale: "en",
 	reference: { type: ReferencePolicyType.FOLLOWERS_ONLY }, // only followers can interact
 });
-``` 
+```
 
-Creating an image post is a bit more involved as you pass in an additional array of images. In our case, the UI only allows for adding one image, but you could easily modify it to allow for including more. 
+Creating an image post is a bit more involved as you pass in an additional array of images. In our case, the UI only allows for adding one image, but you could easily modify it to allow for including more.
 
 ```js
 await create({
@@ -1491,9 +1512,11 @@ await create({
 });
 ```
 
-Just like when creating posts, we pass our `upload` utility function pointer into the `useCreatePost` hook (`useCreatePost({ publisher, upload })`) when creating it. Again, this gets automatically wired together. The `create` function internally generates the post metadata and passes it to `upload` where it is upload to Bundlr. The URL to the metadata is returned and automatically posted to Lens.
+Just like when creating posts, we pass our `upload` utility function pointer into the `useCreatePost` hook (`useCreatePost({ publisher, upload })`) when setting up the React hook. The `create` function internally generates the post metadata and passes it to `upload` where it is upload to Bundlr. The URL to the metadata is returned and automatically posted to Lens.
 
 Here's the full code for the component:
+
+File name: `componenets/PublicationComposer.js`
 
 ```js
 import React, { useState, useEffect } from "react";
@@ -1625,7 +1648,7 @@ export default PublicationComposer;
 
 ## Conclusion
 
-Rock-n-roll! You did it, congratulations! 
+Rock-n-roll! You did it, congratulations!
 
 In about an hour, you build an entire social dApp similar to OnlyFans or Patreon. You learned how to save data permanently using Bundlr, and you learned how to build social dApps using the Lens React hooks.
 
@@ -1633,12 +1656,12 @@ Pat yourself on the back. You did something impressive.
 
 ## Bonus Challenges
 
-You learn a lot from following along with a quest, however to really level up your skills, you need to take charge and build some additional features on your own. Before sharing your quest online and submitting to earn an NFT, pick one of these challenges and add some new features. I intentionally created challenges for all experience levels, pick the one that looks the most fun.
+You learn a lot from following along with a quest, however to really level up your skills, you need to take charge and build some additional features on your own. Before sharing your quest online and submitting to earn an NFT, pick one of these challenges and add some new features. There are challenges for all experience levels, pick the one that looks the most fun.
 
-- **UI Challenge:** Want to level up your front-end skills? Try changing my UI. Maybe just change the colors or maybe move everything around. You could try copying the UI of an existing social network or just get super creative and make up your own.
-- **Comments:** Most social networks allow people to comment on a profile, try adding in this functionality using the [`useCreateComment`](https://docs.lens.xyz/docs/use-create-comment) React Lens hook
-- **Encryption Challenge:** In OnlyBundlr we partially implemented token-gating. We set things so you can set a fee to follow and that publications are only visible to followers. But, in the world of blockchains, information is public unless it's encrypted. Someone could circumvent our token-gating by monitoring Bundlr for new metadata uploads and building a UI to show them. If you're up for a challenging challenge, try building full token-gating by [encrypting publication metadata with Lit Protocol.](https://docs.lens.xyz/docs/gated)
-- **DIY Challenge:** Software design is all about being creative and thinking outside of the box. Maybe my challenges bore you and you'd rather do something different? If so, go for it. The last challenge is fully free-form, you think of some new feature and you built it!
+-   **UI Challenge:** Want to level up your front-end skills? Try changing the UI. Try changing the colors or layout. You could try copying the UI of an existing social network or just get super creative and create your own.
+-   **Comments:** Most social networks allow people to comment on a publication, try adding in this functionality using the [`useCreateComment`](https://docs.lens.xyz/docs/use-create-comment) React Lens hook.
+-   **Encryption Challenge:** In OnlyBundlr we partially implemented follow-gating. We set things so you can set a fee to follow and that publications are only visible to followers. But, in the world of blockchains, information is public unless it's encrypted. Someone could circumvent our follow-gating by monitoring Bundlr for new metadata uploads and building a UI to show them. If you're up for a challenging challenge, try building full token-gating by [encrypting publication metadata with Lit Protocol.](https://docs.lens.xyz/docs/gated)
+-   **DIY Challenge:** Software design is all about being creative and thinking outside of the box. If the above challenges bore you and you'd rather do something different. Go for it! The last challenge is fully free-form, you think of some new feature and you built it!
 
 ## How To Submit Your Work
 
@@ -1646,9 +1669,4 @@ Once you're done, [upload your project to GitHub](https://docs.github.com/en/get
 
 Finally, share your work on Twitter with the hashtags `#Bundlr` and `#BundlrDeveloperQuests`, and [submit to us via this form.](https://forms.gle/BHP2UgmDqw1hPDZy5)
 
-Starting the first week of May, 2023 and then every week after, we'll review submissions and whitelist successful submissions for a free-mint NFT.
-
-
-
-
-
+Starting the first week of May, 2023 and then every week after, we'll review submissions and whitelist successful submissions Bundlr Quest 2 NFT.

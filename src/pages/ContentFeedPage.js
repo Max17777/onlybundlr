@@ -7,7 +7,7 @@ import LoginButton from "../components/LoginButton";
 import ProfileSwitcher from "../components/ProfileSwitcher";
 import { SiSpringCreators } from "react-icons/si";
 
-const ContentFeed = () => {
+const ContentFeedPage = () => {
 	const { data: activeProfile, loading: profileLoading } = useActiveProfile();
 	const { login, error: loginError, isPending: isLoginPending } = useWalletLogin();
 	const { isConnected } = useAccount();
@@ -69,4 +69,4 @@ const ContentFeed = () => {
 	);
 };
 
-export default ContentFeed;
+export default ContentFeedPage;

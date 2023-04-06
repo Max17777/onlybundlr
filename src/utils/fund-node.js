@@ -1,4 +1,3 @@
-import { WebBundlr } from "@bundlr-network/client";
 import { getBundlr } from "./get-bundlr";
 import BigNumber from "bignumber.js";
 
