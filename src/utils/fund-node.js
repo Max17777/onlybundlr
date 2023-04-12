@@ -5,6 +5,12 @@ import BigNumber from "bignumber.js";
 export const fundNode = async (fundAmount) => {
 	try {
 		const bundlr = await getBundlr();
+		console.log("funding: ", fundAmount);
+		console.log(
+			"funding converted: ",
+			new BigNumber(fundAmount).multipliedBy(bundlr.currencyConfig.base[1]).toString(),
+		);
+
 		const fundAmountParsed = new BigNumber(fundAmount).multipliedBy(bundlr.currencyConfig.base[1]);
 
 		const tx = await bundlr.fund(fundAmountParsed);

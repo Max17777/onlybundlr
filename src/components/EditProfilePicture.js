@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { uploadImage } from "../utils/upload-image";
-
 import { useUpdateProfileImage } from "@lens-protocol/react";
 
 const EditProfilePicture = ({ profile }) => {
