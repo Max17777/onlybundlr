@@ -1,5 +1,4 @@
 import { getBundlr } from "./get-bundlr";
-import BigNumber from "bignumber.js";
 
 // takes the specified amount, converts to atomic units and funds the node
 export const fundNode = async (fundAmount) => {
