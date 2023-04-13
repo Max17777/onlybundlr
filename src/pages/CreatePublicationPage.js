@@ -3,6 +3,7 @@ import { useActiveProfile } from "@lens-protocol/react";
 import PublicationComposer from "../components/PublicationComposer";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import LoginButton from "../components/LoginButton";
+import { SiSpringCreators } from "react-icons/si";
 
 const CreatePublication = () => {
 	const { data: activeProfile, loading: profileLoading } = useActiveProfile();
@@ -10,9 +11,13 @@ const CreatePublication = () => {
 
 	console.log("profileLoading=", profileLoading);
 	return (
-		<div className="w-3/6 bg-background">
+		<div className="flex flex-col w-3/6 bg-background px-5">
 			{!isConnected && (
-				<div className="object-center self-center mt-[20%]">
+				<div className="object-center self-center mt-5 ">
+					<span className="flex flex-row justify-start font-logo text-2xl mb-3">Welcome to:</span>
+					<div className="flex flex-row justify-center font-logo text-6xl mb-3">
+						<SiSpringCreators /> OnlyBundlr
+					</div>
 					<LoginButton />
 				</div>
 			)}
