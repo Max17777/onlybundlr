@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getBalanceMatic } from "../utils/get-balance-matic";
 import { fundNode } from "../utils/fund-node";
 import { getBundlr } from "../utils/get-bundlr.js";
+
 const BundlrBalance = () => {
 	const [curBalance, setCurBalance] = useState(0);
 	const [fundAmount, setFundAmount] = useState(0);

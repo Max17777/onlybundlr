@@ -1,4 +1,4 @@
-import { WebBundlr } from "@bundlr-network/client/web";
+import { WebBundlr } from "@bundlr-network/client";
 import { fetchSigner } from "wagmi/actions";
 import { ethers } from "ethers";
 
