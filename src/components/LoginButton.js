@@ -12,6 +12,7 @@ const LoginButton = () => {
 		connector: new InjectedConnector(),
 	});
 
+	// Called when the user clicks "login"
 	const onLoginClick = async () => {
 		if (isConnected) {
 			await disconnectAsync();
@@ -32,7 +33,7 @@ const LoginButton = () => {
 				disabled={isLoginPending}
 				onClick={onLoginClick}
 			>
-				Log in
+				login
 			</button>
 		</div>
 	);

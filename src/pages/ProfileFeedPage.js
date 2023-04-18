@@ -19,8 +19,8 @@ const ProfileFeedPage = () => {
 		// Update the document title using the browser API
 		setCurrentHandle(window.location.href);
 
-		// grab just the user's handle, the final part of the URL
-		// regex from Professor ChatGPT
+		// Grab just the user's handle (the final part of the URL)
+		// Regex from Professor ChatGPT
 		const regex = /[^/]*$/;
 		setCurrentHandle(window.location.href.match(regex)[0]);
 	});
@@ -70,18 +70,15 @@ const ProfileFeedPage = () => {
 					</div>
 				)}
 				{profile?.id === activeProfile?.id && (
-					<h1 className="font-main text-sm mt-2 bg-secondary px-2 py-2 mb-1 ml-10">
-						{profile?.bio}
-					</h1>
+					<h1 className="font-main text-sm mt-2 bg-secondary px-2 py-2 mb-1 ml-10">{profile?.bio}</h1>
 				)}
 				{profile?.id !== activeProfile?.id && (
 					<h1 className="font-main text-sm mt-2 bg-secondary px-2 py-2 mb-1">{profile?.bio}</h1>
 				)}
 			</div>
-			{!profileLoading &&
-				(profile.followStatus?.isFollowedByMe || profile?.id === activeProfile?.id) && (
-					<PublicationFeed profile={profile} />
-				)}
+			{!profileLoading && (profile.followStatus?.isFollowedByMe || profile?.id === activeProfile?.id) && (
+				<PublicationFeed profile={profile} />
+			)}
 		</div>
 	);
 };

@@ -1,22 +1,8 @@
 import React from "react";
-import {
-	useFollow,
-	useUnfollow,
-	useApproveModule,
-	FollowPolicyType,
-	Amount,
-	TokenAllowanceLimit,
-} from "@lens-protocol/react";
+import { useFollow, useUnfollow, useApproveModule, FollowPolicyType, TokenAllowanceLimit } from "@lens-protocol/react";
 
 function FollowButton({ followee, follower }) {
-	console.log("FollowButton followee=", followee);
-	console.log("FollowButton follower", follower);
-
-	const {
-		execute: follow,
-		error: followError,
-		isPending: isFollowPending,
-	} = useFollow({ follower, followee });
+	const { execute: follow, error: followError, isPending: isFollowPending } = useFollow({ follower, followee });
 	const {
 		execute: unfollow,
 		error: unfollowError,
@@ -24,6 +10,7 @@ function FollowButton({ followee, follower }) {
 	} = useUnfollow({ follower, followee });
 	const { execute: approve, error, isPending } = useApproveModule();
 
+	// Called when the user clicks "Follow". First approves the spend, then follows.
 	const approveAndFollow = async () => {
 		if (followee.followPolicy?.type === FollowPolicyType.CHARGE) {
 			await approve({
@@ -31,10 +18,11 @@ function FollowButton({ followee, follower }) {
 				spender: "0xe7AB9BA11b97EAC820DbCc861869092b52B65C06",
 				// spender is the contract address you want to authorize to access ERC20
 				// in your wallet. In this case the follow module contract address is the spender.
+				// To launch this project on mainnet, you will need to change the address.
 				limit: TokenAllowanceLimit.EXACT,
 			});
 		}
-		console.log("executing follow");
+		console.log("Executing follow");
 		await follow();
 	};
 
@@ -42,7 +30,6 @@ function FollowButton({ followee, follower }) {
 		return null;
 	}
 
-	console.log("FOLLOWBUTTOn followee.followStatus.isFollowedByMe=", followee.followStatus.isFollowedByMe);
 	if (followee.followStatus.isFollowedByMe) {
 		return (
 			<>

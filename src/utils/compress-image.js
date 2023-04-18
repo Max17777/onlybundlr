@@ -1,6 +1,13 @@
 import pica from "pica";
 
-// Written by Professor ChatGPT :)
+/**
+ * Utility function to compress images before uploading.
+ * Written with lots of help from Professor ChatGPT.
+ *
+ * @param {*} The file to be compressed
+ * @param {*} The max width (in pixels) of the resized image
+ * @returns
+ */
 export const compressImage = async (file, maxSize) => {
 	const image = new Image();
 	image.src = URL.createObjectURL(file);

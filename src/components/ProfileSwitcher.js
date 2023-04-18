@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import {
-	useActiveProfile,
-	useCreateProfile,
-	useProfilesOwnedByMe,
-	useActiveProfileSwitch,
-} from "@lens-protocol/react";
+import { useActiveProfile, useCreateProfile, useProfilesOwnedByMe, useActiveProfileSwitch } from "@lens-protocol/react";
 
 const ProfileSwitcher = ({ showCreateNew }) => {
 	const [message, setMessage] = useState("");
@@ -22,25 +17,23 @@ const ProfileSwitcher = ({ showCreateNew }) => {
 		isPending: createNewProfilePending,
 	} = useCreateProfile();
 
+	// Called when the user clicks "save new profile"
 	const doCreateProfile = async () => {
 		setMessage("");
 		setTxActive(true);
 		try {
-			console.log("creating profile");
 			setMessage("Creating profile ...");
 			const tx = await createNewProfile(newProfileHandle);
 			setMessage("Profile created.");
-			console.log("creating profile tx=", tx);
 		} catch (e) {
 			setMessage("Error creating profile " + e);
-			console.log("error on create profile ", e);
+			console.log("Error on create profile ", e);
 		}
 		setTxActive(false);
 		setCreateProfileMode(false);
 	};
 
 	useEffect(() => {
-		console.log("profiles=", profiles);
 		if (!profiles || profiles.length === 0) setCreateProfileMode(true);
 		else setCreateProfileMode(false);
 	}, [profilesLoading]);
@@ -92,7 +85,7 @@ const ProfileSwitcher = ({ showCreateNew }) => {
 								disabled={txActive}
 								onClick={doCreateProfile}
 							>
-								Save New Profile
+								save new profile
 							</button>
 						</div>
 					)}

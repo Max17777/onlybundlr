@@ -15,6 +15,7 @@ const EditProfilePicture = ({ profile }) => {
 		profile,
 	});
 
+	// Called when the user selects a file to be uploaded
 	const handleFile = async (e) => {
 		const newFiles = e.target.files;
 		if (newFiles.length === 0) return;
@@ -23,10 +24,10 @@ const EditProfilePicture = ({ profile }) => {
 		setFileType(newFiles[0]["type"]);
 	};
 
+	// Called when the user clicks "upload"
 	const doUpdateProfilePicture = async () => {
 		setMessage("");
 		setTxActive(true);
-		console.log("file: ", fileToUpload);
 		if (!fileToUpload) {
 			setMessage("Please select an image first");
 			setTxActive(false);
@@ -39,7 +40,7 @@ const EditProfilePicture = ({ profile }) => {
 			setMessage("Linking image with profile ...");
 			await updateProfileImage(newProfileURL);
 		} catch (e) {
-			console.log("error on update ", e);
+			console.log("Error on update ", e);
 		}
 		setMessage("Profile image uploded.");
 		setTxActive(false);

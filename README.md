@@ -24,7 +24,7 @@ Prior to beginning this tutorial, you should:
 -   Understand the basics of [JavaScript](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/), including concepts like variables, basic primitives, functions and function pointers.
 -   [Be comfortable with React.](https://react.dev/)
 -   Have [MetaMask set up.](https://www.youtube.com/watch?v=OSRfgDoVQew)
--   Have [funded your wallet with some of MUMBAI MATIC.](https://mumbaifaucet.com/)
+-   Have funded your wallet with [MATIC on Polygon's Mumbai Testnet](/hands-on/tutorials/setup-metamask)
 
 ## About
 
@@ -34,9 +34,9 @@ Prior to beginning this tutorial, you should:
 
 ## Background
 
-The cost to build highly-scalable systems has historically been a barrier to entry and something that prevented innovation. People may have had killer ideas, but without huge amounts of capital, the chance of success was low. Permissionless systems represent a total paradigm shift, they remove barriers that prevented innovation and kept people from competing.
+The cost to build highly-scalable systems has historically been a barrier to entry and something that has prevented innovation. People may have had killer ideas, but without huge amounts of capital, the chance of success was low. Permissionless systems represent a total paradigm shift: they remove barriers that prevented innovation and kept people from competing.
 
-By leveraging Bundlr and Lens’ highly-scalable and permissionless infrastructure, builders can focus solely on building features unique to their use case. This means projects can be built in much less time for a fraction of the budget that would otherwise have been required.
+By leveraging Bundlr and Lens’ highly-scalable and permissionless infrastructure, builders can focus solely on building features unique to their use case. This means projects can be built in much less time and for a fraction of the budget that would otherwise have been required.
 
 ## OnlyBundlr
 
@@ -46,7 +46,7 @@ By leveraging Bundlr and Lens’ highly-scalable and permissionless infrastructu
 
 In this developer quest, we'll build OnlyBundlr, a web3 social app for the creator economy. Inspired by wildly successful platforms like OnlyFans and Patreon, we'll build a social network where creators can create a profile and set a fee required to follow them. Creators can post text and images to their feed, which only paid followers can view. For people following creators, we'll present a curated feed showing posts from people they pay to follow only.
 
-Finally, we'll show how Lens+Bundlr puts creators in control of their data. We'll show how the profile you build, including your content and followers, is totally portable. A creator could easily build up a large profile on OnlyBundlr, and then take that profile and move it elsewhere. Creators building on Lens+Bundlr are never at risk of being de-platformed, or even of suffering when a social network goes out of business. As Lens is built on top of smart contracts on the Polygon blockchain, and Bundlr is built on top of Arweave, the permanence of both guarantee your content will be retrievable forever. As both Polygon and Arweave are decentralized, your data is also censorship resistant.
+Finally, we'll show how Lens+Bundlr puts creators in control of their data. We'll show how the profile you build, including your content and followers, is totally portable. A creator could easily build up a large profile on OnlyBundlr, and then take that profile and move it elsewhere. Creators building on Lens+Bundlr are never at risk of being de-platformed, or even of suffering when a social network goes out of business. With OnlyBundlr we'll use Bundlr to store posts on Arweave, where your content is guaranteed to be there forever. Lens protocol is built on top of smart contracts on the Polygon blockchain which has similar guarantees of permanence. The permanence of both combine to guarantee your content will be there forever. As both Polygon and Arweave are decentralized, your data is also censorship resistant.
 
 ### Outcomes
 
@@ -56,19 +56,19 @@ Then, if you want to take things a step further, there are coding challenges whe
 
 When you're done, you'll get access to an exclusive Developer Quest 2 NFT to celebrate your achievement.
 
+### Getting Help
+
+We prepared this quest in both written and video forms to make sure there's something for all learning styles. There are links to outside documentation and lots of side notes that provide additional tips and tricks. If you do get stuck while building, the best way to get help is to hop on over to our [Discord](https://discord.gg/bundlr), or [Telegram](https://t.me/bundlr) Someone from our team is always ready to answer questions. Additionally, you can compare the code you're writing against the main branch of the [GitHub repo](TODO) for this quest.
+
 ### Mainnet vs Testnet
 
 ![](https://i.imgur.com/UHahmKx.png)
 
-When working with Lens, you need to have a handle, each wallet address can have multiple handles, with exactly one active at a given time. Handle names are immutable, once you pick one you can't change it.
+When working with Lens, you need to have a handle, each wallet address can have multiple handles. However, only one handle will be active at a given time. Handle names are immutable, once you pick one you can't change it.
 
-Lens has both a mainnet and a testnet, the mainnet is where you release production dApps and the testnet is where you work while building your dApp. Mainnet handles are in the format `handle.lens,` and testnet handles are in the format `handle.test`. Currently access to the mainnet is controlled by a whitelist, you need to get added to the whitelist in order to mint a handle. On testnet, anyone can create a handle and build / interact with Lens dApps.
+Lens has both a mainnet and a testnet, the mainnet is where you release production dApps and the testnet is where you work while building your dApp. Mainnet handles are in the format `handle.lens`, and testnet handles are in the format `handle.test`. Currently access to the mainnet is controlled by a whitelist, you need to get added to the whitelist in order to mint a handle. On testnet, anyone can create a handle and build / interact with Lens dApps.
 
 We'll build OnlyBundlr on the testnet.
-
-### Getting Help
-
-We prepared this quest in both written and video forms to make sure there's something for all learning styles. There are links to outside documentation and lots of side notes that provide additional tips and tricks. If you do get stuck while building, the best way to get help is to hop on over to our [Discord](https://discord.gg/bundlr), or [Telegram](https://t.me/bundlr) I hang out on both every day and am ready to answer any questions you might have. Additionally, you can compare the code you're writing against the main branch of the [GitHub repo](TODO) for this quest.
 
 ## Architecture
 
@@ -76,7 +76,7 @@ We prepared this quest in both written and video forms to make sure there's some
 
 (TODO: Update URLS once the project is moved to Bundlr GitHub)
 
-Think of this quest like a coloring book. Just as a coloring book creates structure for you to make art, we've created a framework project you'll use to build a full application. The pieces you build will help you learn Bundlr and Lens.
+Think of this quest like a coloring book. Just as a coloring book creates structure for you to make art, we've created a framework project you'll use to build a full application. The pieces you build will help you learn how to build with Bundlr and Lens.
 
 All of the code for this project is contained in the [GitHub repository](https://github.com/lukecd/onlybundlr), there are two branches:
 
@@ -120,7 +120,7 @@ In this next section, we'll build utility functions for each.
 
 The WebBundlr class is the point of entry used when interacting with Bundlr. It connects your code to a Bundlr node, and exposes functions used for funding, and uploading.
 
-All of the interactions with Bundlr will be via a set of utility functions accessed by our React components. The first utility function, `getBundlr()` sets up a reference to a `WebBundlr` object and returns it. By abstracting away all of this setup code into a common utility function, we create a single place to store details like the node address and currency used to pay. This way if you want to switch your dApp from the devnet to the mainnet, you only have to adjust parameters in a single place.
+All of the interactions with Bundlr will be via a set of utility functions accessed by our React components. The first utility function, `getBundlr()` sets up a reference to a `WebBundlr` object and returns it. By abstracting away all of this setup code into a common utility function, we create a single place to store details like the node address and currency used to pay. This way, if you want to switch your dApp from the devnet to the mainnet, you only have to adjust parameters in a single place.
 
 File name: `utils/get-bundlr.js`
 
@@ -285,7 +285,7 @@ Lens works in conjunction with the [WAGMI](https://wagmi.sh/) hooks for React wh
 Let's first take a look at how we're setting up Lens. Pretty much everything here is boilerplate, two things to pay attention to are the environment and sources parameters. The first, `environment`, is where we specify we're on the testnet, not the mainnet, and then `sources` is where we specify our unique application id. By setting a unique application id here, we make sure that feed posts are limited to ones created by OnlyBundlr. If we left it out, we would end up showing a feed that pulled data from other apps too.
 
 :::note
-The use of the application id is a great example of how data is portable in Lens. I could easily change that application id to that of an existing commercial Lens application and build a new UI for it. This opens up new ways to compete and innovate, anyone with an idea for a UI can build that and leverage existing data.
+The use of the application id is a great example of how data is portable in Lens. You could easily change that application id to that of an existing commercial Lens application and build a new UI for it. This opens up new ways to compete and innovate, anyone with an idea for a UI can build that and leverage existing data.
 :::
 
 ```js
@@ -359,7 +359,7 @@ export default App;
 
 ## Profiles
 
-When working with Lens, each wallet address can have multiple profiles. Each profile can have its own follow settings, either allowing anyone to follow or charging for a follow. Since we're building a dApp to similar to OnlyFans or Patreon, we will implement the charge functionality. When setting up your profile, you can specify a fee to follow (using WMATIC, WETH, USDC, DAI, NCT), and then people who follow you will have to pay when executing the follow.
+When working with Lens, each wallet address can have multiple profiles. Each profile can have its own follow settings, which allows anyone to accept followers for a fee or for free. Since we're building a dApp to similar to OnlyFans or Patreon, we will implement the charge functionality. When setting up your profile, you can specify a fee to follow (using WMATIC, WETH, USDC, DAI, NCT), and then people who follow you will have to pay when executing the follow.
 
 ### Component: LoginButton
 
@@ -483,12 +483,7 @@ File name: `components/ProfileSwitcher.js`
 ```js
 import React, { useState, useEffect } from "react";
 
-import {
-	useActiveProfile,
-	useCreateProfile,
-	useProfilesOwnedByMe,
-	useActiveProfileSwitch,
-} from "@lens-protocol/react";
+import { useActiveProfile, useCreateProfile, useProfilesOwnedByMe, useActiveProfileSwitch } from "@lens-protocol/react";
 
 const ProfileSwitcher = ({ showCreateNew }) => {
 	const [message, setMessage] = useState("");
@@ -603,7 +598,7 @@ In the `EditProfileDetails` component, we set a profile's name, bio, subscriptio
 
 You may notice missing from the list of hooks is a hook used to determine the active profile. This is because the active profile will be retrieved at the page level and then passed into the `EditProfileDetails` component.
 
-Let's look at the two hooks used to update profile information. The first `useUpdateProfileDetails`, returns a function pointer we alias to `update` that is called to update that profile, the second, returns a function pointer we alias to `updateFollowPolicy` we use to set the follow policy.
+Let's look at the two hooks used to update profile information. The first `useUpdateProfileDetails`, returns a function pointer we alias to `update` that is called to update that profile. The second returns a function pointer we alias to `updateFollowPolicy` we use to set the follow policy.
 
 ```js
 const {
@@ -687,7 +682,7 @@ const doUploadFollowPolicy = async () => {
 ```
 
 :::note
-To pay follow fees while developing, you'll need testnet versions of the tokens supported. The recommended option is using wMATIC. First [request free MUMBAI MATIC](https://mumbaifaucet.com/) from the faucet, then [wrap it using the `deposit()` function of this contract.](https://mumbai.polygonscan.com/address/0x9c3c9283d3e44854697cd22d3faa240cfb032889#writeContract#F5).
+To pay follow fees while developing, you'll need testnet versions of the tokens supported. The recommended option is using wMATIC. First [request free MUMBAI MATIC](https://mumbaifaucet.com/) from the faucet, then [wrap it using the `deposit()` function of this contract](https://mumbai.polygonscan.com/address/0x9c3c9283d3e44854697cd22d3faa240cfb032889#writeContract#F5).
 
 That said, to make things easiest, you can also leave the follow fee set to 0.
 :::
@@ -838,9 +833,7 @@ const EditProfileDetails = ({ profile }) => {
 	return (
 		<div className="w-[600px] mt-2 flex flex-col bg-primary px-1 py-1 rounded-lg">
 			<div className="ml-2">
-				<label className="font-main block uppercase text-xs font-bold mb-2">
-					Personal Information
-				</label>
+				<label className="font-main block uppercase text-xs font-bold mb-2">Personal Information</label>
 				<label className="font-main block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
 					Name
 				</label>
@@ -1272,7 +1265,7 @@ Rock-n-roll! You made it! Congratulations are in order. You now understand how t
 
 ![](https://i.imgur.com/Eaf4V1c.jpg)
 
-The `Publication` component renders a single publication (post) to the screen. We'll use it in two places, our main feed showing posts from everyone we subscribe to and in a profile-specific feed showing posts from a given profile. This component is pure React, no Bundlr or Lens integration. The data shown is passed in as variables.
+The `Publication` component renders a single publication (post) to the screen. We'll use it in two places: our main feed showing posts from everyone we subscribe to and in a profile-specific feed showing posts from a given profile. This component is pure React, no Bundlr or Lens integration. The data shown is passed in as variables.
 
 Here's the full code for the component:
 File name: `components/Publication.js`
@@ -1301,13 +1294,7 @@ const Publication = ({ id, content, description, media, publisher }) => {
 			</div>
 			{media &&
 				media.map((picture, id) => {
-					return (
-						<img
-							width="600"
-							className="bg-primary px-1 py-1 rounded-xl"
-							src={picture.original?.url}
-						/>
-					);
+					return <img width="600" className="bg-primary px-1 py-1 rounded-xl" src={picture.original?.url} />;
 				})}
 			<h2 className="ml-2 font-main">{content}</h2>
 			<p className="ml-2 font-main">{description}</p>
@@ -1606,9 +1593,7 @@ const PublicationComposer = ({ publisher }) => {
 					Choose a photo and click post.
 				</label>
 				<div className="px-2 py-2 text-sm text-white rounded-lg bg-secondary">
-					{fileToUpload && (
-						<img src={URL.createObjectURL(fileToUpload)} alt="preview of publication image" />
-					)}
+					{fileToUpload && <img src={URL.createObjectURL(fileToUpload)} alt="preview of publication image" />}
 					<input
 						className={fileToUpload ? "mt-2" : ""}
 						type="file"
@@ -1669,4 +1654,4 @@ Once you're done, [upload your project to GitHub](https://docs.github.com/en/get
 
 Finally, share your work on Twitter with the hashtags `#Bundlr` and `#BundlrDeveloperQuests`, and [submit to us via this form.](https://forms.gle/BHP2UgmDqw1hPDZy5)
 
-Starting the first week of May, 2023 and then every week after, we'll review submissions and whitelist successful submissions Bundlr Quest 2 NFT.
+Starting the first week of TODO, 2023 and then every week after, we'll review submissions and whitelist successful submissions for the Bundlr Quest 2 NFT.

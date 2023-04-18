@@ -1,11 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { WebBundlr } from "@bundlr-network/client";
+import React, { useState } from "react";
 import { upload } from "../utils/upload";
 import { uploadImage } from "../utils/upload-image";
-
-import { fetchSigner } from "wagmi/actions";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
-import { InjectedConnector } from "wagmi/connectors/injected";
 
 import { useUpdateProfileDetails } from "@lens-protocol/react";
 
@@ -19,6 +14,7 @@ const EditCoverPicture = ({ profile }) => {
 		isPending: isUpdatePending,
 	} = useUpdateProfileDetails({ profile, upload });
 
+	// Called when the user drags and drops a file into the upload zone
 	const handleFile = async (e) => {
 		const newFiles = e.target.files;
 		if (newFiles.length === 0) return;
@@ -27,17 +23,19 @@ const EditCoverPicture = ({ profile }) => {
 		setFileType(newFiles[0]["type"]);
 	};
 
+	// Called when the user clicks the upload button
 	const doUpdateCoverPicture = async () => {
 		try {
 			const coverPicture = await uploadImage(fileToUpload, fileType);
-
+			// Location and website must be passed to update() function, but we're not using
+			// them in our UI. Maybe try adding yourself as a challenge?
 			const attributes = {
 				location: "",
 				website: "",
 			};
 			await update(profile.name, profile.bio, coverPicture, attributes);
 		} catch (e) {
-			console.log("error on update ", e);
+			console.log("Error on update ", e);
 		}
 	};
 

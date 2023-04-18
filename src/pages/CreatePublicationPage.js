@@ -1,7 +1,7 @@
 import React from "react";
 import { useActiveProfile } from "@lens-protocol/react";
 import PublicationComposer from "../components/PublicationComposer";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount } from "wagmi";
 import LoginButton from "../components/LoginButton";
 import { SiSpringCreators } from "react-icons/si";
 
@@ -9,7 +9,6 @@ const CreatePublication = () => {
 	const { data: activeProfile, loading: profileLoading } = useActiveProfile();
 	const { isConnected } = useAccount();
 
-	console.log("profileLoading=", profileLoading);
 	return (
 		<div className="flex flex-col w-3/6 bg-background px-5">
 			{!isConnected && (
@@ -29,9 +28,7 @@ const CreatePublication = () => {
 					</a>
 				</div>
 			)}
-			{isConnected && !profileLoading && activeProfile && (
-				<PublicationComposer publisher={activeProfile} />
-			)}
+			{isConnected && !profileLoading && activeProfile && <PublicationComposer publisher={activeProfile} />}
 		</div>
 	);
 };

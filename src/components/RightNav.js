@@ -9,6 +9,7 @@ const RightNav = () => {
 	const { isConnected } = useAccount();
 
 	useEffect(() => {
+		// Hardcoded list of profiles to follow
 		const profiles = [
 			"llamakahlo.test",
 			"llamaanime.test",
@@ -16,12 +17,12 @@ const RightNav = () => {
 			"llamafigurine.test",
 			"llamabasquiat.test",
 		];
-		// shuffle the order
+		// Shuffle the order
 		for (let i = profiles.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
 			[profiles[i], profiles[j]] = [profiles[j], profiles[i]];
 		}
-		// pick just 4
+		// Pick just 4
 		setSuggestedProfileHandles(profiles.slice(0, 4));
 	}, []);
 

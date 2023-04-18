@@ -35,7 +35,6 @@ const EditProfileDetails = ({ profile }) => {
 
 	useEffect(() => {
 		if (profile) {
-			console.log("active profile ", profile);
 			setName(profile.name);
 			setBio(profile.bio || " ");
 
@@ -48,7 +47,7 @@ const EditProfileDetails = ({ profile }) => {
 	}, [profile]);
 
 	useEffect(() => {
-		// if a follow-fee / currency has yet to be set, pick the first in the list
+		// If a follow-fee / currency has yet to be set, pick the first in the list
 		if (currencies && !currenciesLoading) {
 			if (profile.followPolicy?.type !== FollowPolicyType.CHARGE) {
 				setChargeCurrency(currencies[0].symbol);
@@ -58,6 +57,16 @@ const EditProfileDetails = ({ profile }) => {
 		}
 	}, [currenciesLoading]);
 
+	// Called when a user selects a file to be uploaded
+	const handleFile = async (e) => {
+		const newFiles = e.target.files;
+		if (newFiles.length === 0) return;
+
+		setFileToUpload(newFiles[0]);
+		setFileType(newFiles[0]["type"]);
+	};
+
+	// Called when the user clicks "save"
 	const doUpdateProfile = async () => {
 		setMessage("");
 		setTxActive(true);
@@ -81,7 +90,7 @@ const EditProfileDetails = ({ profile }) => {
 		setMessage("Profile updated.");
 		setTxActive(false);
 
-		// only set the fee if a number greater than 0 is supplied
+		// Only set the fee if a number greater than 0 is supplied
 		if (followFee && followFee > 0) {
 			await doUploadFollowPolicy();
 		}
@@ -101,7 +110,8 @@ const EditProfileDetails = ({ profile }) => {
 			type: FollowPolicyType[followPolicyType],
 		};
 	}
-	// sets the fee to follow a profile
+
+	// Sets the fee to follow a profile
 	const doUploadFollowPolicy = async () => {
 		const recipient = profile.ownedBy;
 
@@ -116,33 +126,10 @@ const EditProfileDetails = ({ profile }) => {
 		});
 	};
 
-	const handleFile = async (e) => {
-		const newFiles = e.target.files;
-		if (newFiles.length === 0) return;
-
-		setFileToUpload(newFiles[0]);
-		setFileType(newFiles[0]["type"]);
-	};
-
-	const doUpdateCoverPicture = async () => {
-		try {
-			const coverPicture = await uploadImage(fileToUpload, fileType);
-
-			const attributes = {
-				location: "",
-				website: "",
-			};
-			await update(profile.name, profile.bio, coverPicture, attributes);
-		} catch (e) {
-			console.log("error on update ", e);
-		}
-	};
 	return (
 		<div className="w-[600px] mt-2 flex flex-col bg-primary px-1 py-1 rounded-lg">
 			<div className="ml-2">
-				<label className="font-main block uppercase text-xs font-bold mb-2">
-					Personal Information
-				</label>
+				<label className="font-main block uppercase text-xs font-bold mb-2">Personal Information</label>
 				<label className="font-main block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
 					Name
 				</label>

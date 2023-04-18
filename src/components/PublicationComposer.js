@@ -12,6 +12,7 @@ const PublicationComposer = ({ publisher }) => {
 	const [caption, setCaption] = useState("");
 	const { execute: create, error, isPending } = useCreatePost({ publisher, upload });
 
+	// Called when the user selects a file to upload
 	const handleFile = async (e) => {
 		const newFiles = e.target.files;
 		if (newFiles.length === 0) return; // should never happen
@@ -24,6 +25,7 @@ const PublicationComposer = ({ publisher }) => {
 		setFileType(newFiles[0]["type"]);
 	};
 
+	// Called when the user clicks "Post"
 	const createPublication = async () => {
 		setTxActive(true);
 		setMessage("");
@@ -85,9 +87,7 @@ const PublicationComposer = ({ publisher }) => {
 					Choose a photo and click post.
 				</label>
 				<div className="px-2 py-2 text-sm text-white rounded-lg bg-secondary">
-					{fileToUpload && (
-						<img src={URL.createObjectURL(fileToUpload)} alt="preview of publication image" />
-					)}
+					{fileToUpload && <img src={URL.createObjectURL(fileToUpload)} alt="preview of publication image" />}
 					<input
 						className={fileToUpload ? "mt-2" : ""}
 						type="file"

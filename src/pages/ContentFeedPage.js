@@ -2,7 +2,6 @@ import React from "react";
 import Publication from "../components/Publication";
 import { useActiveProfile, useWalletLogin, useFeed } from "@lens-protocol/react";
 import { useAccount } from "wagmi";
-import { InjectedConnector } from "wagmi/connectors/injected";
 import LoginButton from "../components/LoginButton";
 import ProfileSwitcher from "../components/ProfileSwitcher";
 import { SiSpringCreators } from "react-icons/si";

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getBalanceMatic } from "../utils/get-balance-matic";
 import { fundNode } from "../utils/fund-node";
-import { getBundlr } from "../utils/get-bundlr.js";
 
 const BundlrBalance = () => {
 	const [curBalance, setCurBalance] = useState(0);
@@ -10,12 +9,12 @@ const BundlrBalance = () => {
 
 	useEffect(() => {
 		const fetchBalance = async () => {
-			console.log("getting balance");
 			setCurBalance(await getBalanceMatic());
 		};
 		fetchBalance();
 	}, []);
 
+	// Called when the "fund" button is clicked by the user
 	const doFund = async () => {
 		if (!fundAmount) {
 			setMessage("Please specify an amount to fund");
@@ -27,6 +26,7 @@ const BundlrBalance = () => {
 		setCurBalance(await getBalanceMatic());
 		setFundAmount(0);
 	};
+
 	return (
 		<div className="w-[600px] mt-1 flex flex-col  bg-primary px-1 py-1 rounded-lg ">
 			<label className="font-main block uppercase text-xs font-bold mb-2">
